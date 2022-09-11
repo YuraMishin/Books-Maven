@@ -23,6 +23,8 @@
         <maven.compiler.release>${java.version}</maven.compiler.release>
     </properties>
 
+    <packaging>jar</packaging>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -83,6 +85,8 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                    <!-- запускать из консоли без java -jar -->
+                    <executable>false</executable>
                 </configuration>
             </plugin>
 

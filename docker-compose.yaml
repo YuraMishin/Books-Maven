@@ -1,0 +1,30 @@
+version: '3.9'
+services:
+  nginx:
+    container_name: container_nginx
+    image: nginx
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - app
+  
+  app:
+    container_name: container_spring
+    restart: always
+    ports:
+      - 8080:8080
+    build: ./
+    depends_on:
+      - postgres
+    
+  postgres:
+    container_name: container_postgres
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - 5432:5432

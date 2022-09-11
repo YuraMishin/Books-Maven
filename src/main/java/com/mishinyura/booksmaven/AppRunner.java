@@ -7,10 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @Slf4j
 @SpringBootApplication
 public class AppRunner {
-
     public static void main(String[] args) {
         SpringApplication.run(AppRunner.class, args);
         log.debug("Hello, World!");
     }
-
 }
