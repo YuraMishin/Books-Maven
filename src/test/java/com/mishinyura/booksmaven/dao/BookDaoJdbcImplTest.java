@@ -24,6 +24,8 @@ class BookDaoJdbcImplTest {
 
         var actualCount = bookDaoJdbc.getBooksCount();
 
-        assertThat(actualCount).isEqualTo(expectedCount);
+        assertThat(actualCount)
+                .as("Error in count()")
+                .isEqualTo(expectedCount);
     }
 }
