@@ -13,6 +13,6 @@ public class BookDaoJdbcImpl implements BookDao {
 
     @Override
     public Long getBooksCount() {
-        return -1L;
+        return jdbc.queryForObject(BookDaoSqlQueries.GETBOOKSCOUNT, Long.class);
     }
 }
