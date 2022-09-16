@@ -1,8 +1,11 @@
 package com.mishinyura.booksmaven.services;
 
+import com.mishinyura.booksmaven.dto.BookResDto;
 import com.mishinyura.booksmaven.models.Book;
 import com.mishinyura.booksmaven.repositories.BookRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +15,7 @@ import java.util.List;
 @Service
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
+    private final ModelMapper modelMapper;
 
     @Override
     public Long getBooksCount() {
@@ -19,8 +23,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> findAllBooks() {
-        return bookRepository.findAll();
+    public List<BookResDto> findAllBooks() {
+        var books = bookRepository.findAll();
+        return modelMapper
+                .map(books, new TypeToken<List<BookResDto>>() {
+                }.getType());
     }
 
     @Transactional
