@@ -16,7 +16,7 @@ public class BookSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) {
         log.debug("Seed books table");
-        bookService.createBook(new Book("title1"));
+        bookService.createBook(new Book("Title1"));
         log.debug("Books table has {} record(s)", bookService.getBooksCount());
     }
 }
