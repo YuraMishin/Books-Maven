@@ -1,5 +1,6 @@
 package com.mishinyura.booksmaven.services;
 
+import com.mishinyura.booksmaven.dto.BookReqDto;
 import com.mishinyura.booksmaven.dto.BookResDto;
 import com.mishinyura.booksmaven.exceptions.BookNotFoundException;
 import com.mishinyura.booksmaven.models.Book;
@@ -42,5 +43,13 @@ public class BookServiceImpl implements BookService {
         var bookFound = bookRepository.findById(id);
         var book = bookFound.orElseThrow(BookNotFoundException::new);
         return modelMapper.map(book, BookResDto.class);
+    }
+
+    @Transactional
+    @Override
+    public BookResDto createBook(BookReqDto book) {
+        var bookToSave = modelMapper.map(book, Book.class);
+        var bookSaved = bookRepository.save(bookToSave);
+        return modelMapper.map(bookSaved, BookResDto.class);
     }
 }

@@ -1,5 +1,6 @@
 package com.mishinyura.booksmaven.services;
 
+import com.mishinyura.booksmaven.dto.BookReqDto;
 import com.mishinyura.booksmaven.dto.BookResDto;
 import com.mishinyura.booksmaven.models.Book;
 
@@ -13,4 +14,6 @@ public interface BookService {
     void createBook(Book book);
 
     BookResDto findBookById(Long id);
+
+    BookResDto createBook(BookReqDto book);
 }
