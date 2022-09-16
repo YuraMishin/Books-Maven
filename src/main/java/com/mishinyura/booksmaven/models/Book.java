@@ -23,4 +23,8 @@ public class Book {
 
     @Column(name = "title", nullable = false)
     private String title;
+
+    public Book(String title) {
+        this.title = title;
+    }
 }
