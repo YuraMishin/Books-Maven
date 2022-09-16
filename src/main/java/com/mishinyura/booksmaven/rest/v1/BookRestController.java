@@ -1,6 +1,6 @@
 package com.mishinyura.booksmaven.rest.v1;
 
-import com.mishinyura.booksmaven.models.Book;
+import com.mishinyura.booksmaven.dto.BookResDto;
 import com.mishinyura.booksmaven.services.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ public class BookRestController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Book> findAllUsers() {
+    public List<BookResDto> findAllUsers() {
         return bookService.findAllBooks();
     }
 }
