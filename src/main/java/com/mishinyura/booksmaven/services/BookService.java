@@ -11,4 +11,6 @@ public interface BookService {
     List<BookResDto> findAllBooks();
 
     void createBook(Book book);
+
+    BookResDto findBookById(Long id);
 }
