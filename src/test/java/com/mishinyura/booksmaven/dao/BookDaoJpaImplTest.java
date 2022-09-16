@@ -23,7 +23,7 @@ class BookDaoJpaImplTest {
 
     @DisplayName("tests count()")
     @Test
-    void shouldGetsBooksCount() {
+    void shouldGetBooksCount() {
         var expectedCount = 0L;
 
         var actualCount = bookDaoJpa.getBooksCount();
