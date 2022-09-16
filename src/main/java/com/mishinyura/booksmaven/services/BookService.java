@@ -3,6 +3,7 @@ package com.mishinyura.booksmaven.services;
 import com.mishinyura.booksmaven.dto.BookReqDto;
 import com.mishinyura.booksmaven.dto.BookResDto;
 import com.mishinyura.booksmaven.models.Book;
+import org.springframework.validation.BindingResult;
 
 import java.util.List;
 
@@ -15,5 +16,5 @@ public interface BookService {
 
     BookResDto findBookById(Long id);
 
-    BookResDto createBook(BookReqDto book);
+    BookResDto createBook(BookReqDto book, BindingResult bindingResult);
 }
