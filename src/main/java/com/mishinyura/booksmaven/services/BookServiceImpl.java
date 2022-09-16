@@ -1,6 +1,7 @@
 package com.mishinyura.booksmaven.services;
 
 import com.mishinyura.booksmaven.dto.BookResDto;
+import com.mishinyura.booksmaven.exceptions.BookNotFoundException;
 import com.mishinyura.booksmaven.models.Book;
 import com.mishinyura.booksmaven.repositories.BookRepository;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +40,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookResDto findBookById(Long id) {
         var bookFound = bookRepository.findById(id);
-        // TODO: 16.09.2022 если нет такой book?
-        return modelMapper.map(bookFound.get(), BookResDto.class);
+        var book = bookFound.orElseThrow(BookNotFoundException::new);
+        return modelMapper.map(book, BookResDto.class);
     }
 }
