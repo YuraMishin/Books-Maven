@@ -35,4 +35,11 @@ public class BookServiceImpl implements BookService {
     public void createBook(Book book) {
         bookRepository.save(book);
     }
+
+    @Override
+    public BookResDto findBookById(Long id) {
+        var bookFound = bookRepository.findById(id);
+        // TODO: 16.09.2022 если нет такой book?
+        return modelMapper.map(bookFound.get(), BookResDto.class);
+    }
 }
