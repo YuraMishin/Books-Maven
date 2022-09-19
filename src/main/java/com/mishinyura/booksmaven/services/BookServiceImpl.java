@@ -11,10 +11,12 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -46,6 +48,16 @@ public class BookServiceImpl implements BookService {
         var bookFound = bookRepository.findById(id);
         var book = bookFound.orElseThrow(BookNotFoundException::new);
         return modelMapper.map(book, BookResDto.class);
+    }
+
+    @Override
+    public String findBookByIdMVC(Model model, Long id) {
+        var bookFound = bookRepository.findById(id);
+        if (bookFound.isPresent()) {
+            model.addAttribute("book", bookFound.get());
+            return "book/show";
+        }
+        return "redirect:/books/";
     }
 
     @Transactional
