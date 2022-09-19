@@ -16,7 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -54,7 +53,8 @@ public class BookServiceImpl implements BookService {
     public String findBookByIdMVC(Model model, Long id) {
         var bookFound = bookRepository.findById(id);
         if (bookFound.isPresent()) {
-            model.addAttribute("book", bookFound.get());
+            var bookResDto = modelMapper.map(bookFound.get(), BookResDto.class);
+            model.addAttribute("book", bookResDto);
             return "book/show";
         }
         return "redirect:/books/";
@@ -77,5 +77,11 @@ public class BookServiceImpl implements BookService {
         var bookToSave = modelMapper.map(book, Book.class);
         var bookSaved = bookRepository.save(bookToSave);
         return modelMapper.map(bookSaved, BookResDto.class);
+    }
+
+    @Transactional
+    @Override
+    public void createBookMVC(BookReqDto book) {
+        bookRepository.save(modelMapper.map(book, Book.class));
     }
 }
