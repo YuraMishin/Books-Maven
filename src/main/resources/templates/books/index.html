@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books Project - All Books</title>
+    <link th:href="@{/css/bootstrap.css}"
+          rel="stylesheet"/>
+</head>
+<body>
+<h1>All Books</h1>
+<div class="container">
+    <div th:if="${books}">
+        <div th:if="${books.isEmpty()}">
+            <div class="alert alert-danger" role="alert">
+                No books found !
+            </div>
+        </div>
+        <div th:unless="${books.isEmpty()}">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Title</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="book : ${books}">
+                    <td th:text="${book.id}"></td>
+                    <td th:text="${book.title}"></td>
+                </tr>
+                <tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/bootstrap.js}"></script>
+</body>
+</html>
