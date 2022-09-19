@@ -21,12 +21,14 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Title</th>
+                    <th scope="col">View</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="book : ${books}">
                     <td th:text="${book.id}"></td>
                     <td th:text="${book.title}"></td>
+                    <td><a th:href="@{/books/{id}(id=${book.id})}">View</a></td>
                 </tr>
                 <tbody>
             </table>

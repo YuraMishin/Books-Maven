@@ -18,7 +18,7 @@ import javax.validation.constraints.Size;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "books")
+@Table(name = "book")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
