@@ -50,12 +50,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public String findBookByIdMVC(Model model, Long id) {
+    public String findBookByIdMVC(Model model, Long id, String page) {
         var bookFound = bookRepository.findById(id);
         if (bookFound.isPresent()) {
             var bookResDto = modelMapper.map(bookFound.get(), BookResDto.class);
             model.addAttribute("book", bookResDto);
-            return "book/show";
+            return page;
         }
         return "redirect:/books/";
     }
@@ -83,5 +83,15 @@ public class BookServiceImpl implements BookService {
     @Override
     public void createBookMVC(BookReqDto book) {
         bookRepository.save(modelMapper.map(book, Book.class));
+    }
+
+    @Transactional
+    @Override
+    public void updateBook(Long id, BookReqDto book) {
+        bookRepository.findById(id)
+                .ifPresent(bookToSave -> {
+                    modelMapper.map(book, bookToSave);
+                    bookRepository.save(bookToSave);
+                });
     }
 }

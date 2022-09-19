@@ -17,9 +17,11 @@ public interface BookService {
 
     BookResDto findBookById(Long id);
 
-    String findBookByIdMVC(Model model, Long id);
+    String findBookByIdMVC(Model model, Long id, String page);
 
     BookResDto createBook(BookReqDto book, BindingResult bindingResult);
 
     void createBookMVC(BookReqDto book);
+
+    void updateBook(Long id, BookReqDto book);
 }
