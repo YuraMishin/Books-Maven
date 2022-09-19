@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,7 @@ public class BookController {
 
     @GetMapping(value = "/{id}")
     public String showSpecificBookPage(@PathVariable Long id, Model model) {
-        return bookService.findBookByIdMVC(model, id);
+        return bookService.findBookByIdMVC(model, id, "book/show");
     }
 
     @GetMapping(value = "/new")
@@ -36,6 +37,20 @@ public class BookController {
     @PostMapping(value = "/")
     public String createBook(@ModelAttribute("book") BookReqDto book) {
         bookService.createBookMVC(book);
+        return "redirect:/books/";
+    }
+
+    @GetMapping(value = "/{id}/edit")
+    public String showEditBookPage(@PathVariable Long id, Model model) {
+        return bookService.findBookByIdMVC(model, id, "book/edit");
+    }
+
+    @PatchMapping("/{id}")
+    public String updateBook(
+            @PathVariable("id") Long id,
+            @ModelAttribute("book") BookReqDto book
+    ) {
+        bookService.updateBook(id, book);
         return "redirect:/books/";
     }
 }

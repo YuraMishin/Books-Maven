@@ -26,6 +26,7 @@
                     <th scope="col">ID</th>
                     <th scope="col">Title</th>
                     <th scope="col">View</th>
+                    <th scope="col">Edit</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -33,6 +34,7 @@
                     <td th:text="${book.id}"></td>
                     <td th:text="${book.title}"></td>
                     <td><a th:href="@{/books/{id}(id=${book.id})}">View</a></td>
+                    <td><a th:href="@{/books/{id}/edit(id=${book.id})}">Edit</a></td>
                 </tr>
                 <tbody>
             </table>
