@@ -20,4 +20,6 @@ public interface BookService {
     String findBookByIdMVC(Model model, Long id);
 
     BookResDto createBook(BookReqDto book, BindingResult bindingResult);
+
+    void createBookMVC(BookReqDto book);
 }
