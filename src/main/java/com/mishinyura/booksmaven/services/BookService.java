@@ -24,4 +24,6 @@ public interface BookService {
     void createBookMVC(BookReqDto book);
 
     void updateBook(Long id, BookReqDto book);
+
+    void deleteBookById(Long id);
 }
