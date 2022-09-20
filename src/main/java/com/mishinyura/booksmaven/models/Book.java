@@ -25,8 +25,8 @@ public class Book {
     private Long id;
 
     @Pattern(regexp = "[A-Z]\\w+", message = "Incorrect pattern!")
-    @NotEmpty(message = "Title should not be empty")
-    @Size(min = 2, max = 50, message = "Title should be between 2 and 50")
+    @NotEmpty(message = "Title should not be empty!")
+    @Size(min = 2, max = 50, message = "Title should be between 2 and 50!")
     @Column(name = "title", nullable = false)
     private String title;
 

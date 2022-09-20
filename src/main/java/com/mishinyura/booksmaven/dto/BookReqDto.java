@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 @Setter
 public class BookReqDto {
     @Pattern(regexp = "[A-Z]\\w+", message = "Incorrect pattern!")
-    @NotEmpty(message = "Title should not be empty")
-    @Size(min = 2, max = 50, message = "Title should be between 2 and 50")
+    @NotEmpty(message = "Title should not be empty!")
+    @Size(min = 2, max = 50, message = "Title should be between 2 and 50!")
     private String title;
 }

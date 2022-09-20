@@ -81,8 +81,12 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
-    public void createBookMVC(BookReqDto book) {
+    public String createBookMVC(BookReqDto book, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "book/new";
+        }
         bookRepository.save(modelMapper.map(book, Book.class));
+        return "redirect:/books/";
     }
 
     @Transactional
