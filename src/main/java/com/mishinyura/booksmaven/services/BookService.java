@@ -21,7 +21,7 @@ public interface BookService {
 
     BookResDto createBook(BookReqDto book, BindingResult bindingResult);
 
-    void createBookMVC(BookReqDto book);
+    String createBookMVC(BookReqDto book, BindingResult bindingResult);
 
     void updateBook(Long id, BookReqDto book);
 

@@ -5,6 +5,7 @@ import com.mishinyura.booksmaven.services.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @Controller
@@ -36,9 +39,11 @@ public class BookController {
     }
 
     @PostMapping(value = "/")
-    public String createBook(@ModelAttribute("book") BookReqDto book) {
-        bookService.createBookMVC(book);
-        return "redirect:/books/";
+    public String createBook(
+            @ModelAttribute("book") @Valid BookReqDto book,
+            BindingResult bindingResult
+    ) {
+        return bookService.createBookMVC(book, bindingResult);
     }
 
     @GetMapping(value = "/{id}/edit")
