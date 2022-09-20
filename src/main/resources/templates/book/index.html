@@ -27,6 +27,7 @@
                     <th scope="col">Title</th>
                     <th scope="col">View</th>
                     <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -34,7 +35,16 @@
                     <td th:text="${book.id}"></td>
                     <td th:text="${book.title}"></td>
                     <td><a th:href="@{/books/{id}(id=${book.id})}">View</a></td>
-                    <td><a th:href="@{/books/{id}/edit(id=${book.id})}">Edit</a></td>
+                    <td><a th:href="@{/books/{id}/edit(id=${book.id})}">Edit</a>
+                    </td>
+                    <td>
+                        <form th:method="DELETE"
+                              th:action="@{/books/{id}(id=${book.getId()})}">
+                            <button type="submit" class="btn btn-danger">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
                 </tr>
                 <tbody>
             </table>
