@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @RequiredArgsConstructor
 @Repository
-public class BookDaoJdbcImpl implements BookDao {
+public class BookDaoJdbcTemplateImpl implements BookDao {
     private final JdbcOperations jdbc;
 
     @Override

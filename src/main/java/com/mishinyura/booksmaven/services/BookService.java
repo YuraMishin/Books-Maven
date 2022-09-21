@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BookService {
     Long getBooksCount();
@@ -26,4 +27,6 @@ public interface BookService {
     void updateBook(Long id, BookReqDto book);
 
     void deleteBookById(Long id);
+
+    Optional<BookReqDto> findBookByTitle(String title);
 }

@@ -6,6 +6,7 @@ import com.mishinyura.booksmaven.exceptions.BookNotCreatedException;
 import com.mishinyura.booksmaven.exceptions.BookNotFoundException;
 import com.mishinyura.booksmaven.models.Book;
 import com.mishinyura.booksmaven.repositories.BookRepository;
+import com.mishinyura.booksmaven.utils.BookValidator;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -16,12 +17,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final ModelMapper modelMapper;
+    private final BookValidator bookValidator;
 
     @Override
     public Long getBooksCount() {
@@ -82,6 +85,8 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public String createBookMVC(BookReqDto book, BindingResult bindingResult) {
+        bookValidator.validate(book, bindingResult);
+
         if (bindingResult.hasErrors()) {
             return "book/new";
         }
@@ -103,5 +108,14 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteBookById(Long id) {
         bookRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<BookReqDto> findBookByTitle(String title) {
+        var bookFound = bookRepository.findByTitle(title);
+        if (bookFound.isPresent()) {
+            return Optional.of(modelMapper.map(bookFound.get(), BookReqDto.class));
+        }
+        return Optional.empty();
     }
 }
