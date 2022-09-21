@@ -11,9 +11,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Tests BookDaoJdbcImpl.class")
 @JdbcTest
-@Import(BookDaoJdbcImpl.class)
+@Import(BookDaoJdbcTemplateImpl.class)
 @ActiveProfiles("test-jdbc")
-class BookDaoJdbcImplTest {
+class BookDaoJdbcTemplateImplTest {
     @Autowired
     BookDao bookDaoJdbc;
 
