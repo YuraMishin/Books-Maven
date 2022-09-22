@@ -1,5 +1,6 @@
 package com.mishinyura.booksmaven.dao;
 
+import com.mishinyura.booksmaven.models.Book;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ class BookDaoJpaImplTest {
     TestEntityManager em;
 
     @Autowired
-    BookDao bookDaoJpa;
+    BookDaoJpaImpl bookDaoJpa;
 
     @DisplayName("tests count()")
     @Test
@@ -31,5 +32,17 @@ class BookDaoJpaImplTest {
         assertThat(actualCount)
                 .as("Error in count()")
                 .isEqualTo(expectedCount);
+    }
+
+    @DisplayName("findAllBooks()")
+    @Test
+    void shouldFindAllBooks() {
+        em.persist(new Book("TitleTest1"));
+
+        var books = bookDaoJpa.findAllBooks();
+
+        assertThat(books)
+                .isNotEmpty()
+                .hasSize(1);
     }
 }
