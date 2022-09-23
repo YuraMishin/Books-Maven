@@ -1,18 +1,12 @@
 package com.mishinyura.booksmaven.rest.v1;
 
-import com.mishinyura.booksmaven.dto.BookErrorResDto;
 import com.mishinyura.booksmaven.dto.BookReqDto;
 import com.mishinyura.booksmaven.dto.BookResDto;
-import com.mishinyura.booksmaven.exceptions.BookNotCreatedException;
-import com.mishinyura.booksmaven.exceptions.BookNotFoundException;
 import com.mishinyura.booksmaven.services.BookService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -46,29 +39,9 @@ public class BookRestController {
         return bookService.findBookById(id);
     }
 
-    @ExceptionHandler
-    private ResponseEntity<BookErrorResDto> handleBookNotFoundException(BookNotFoundException e) {
-        var response = new BookErrorResDto(
-                "Book not found !",
-                LocalDateTime.now()
-        );
-        log.error("{} - Exception caught - {}", response.date(), response.message());
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-    }
-
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public BookResDto createUser(@RequestBody @Valid BookReqDto bookReqDto, BindingResult bindingResult) {
         return bookService.createBook(bookReqDto, bindingResult);
-    }
-
-    @ExceptionHandler
-    private ResponseEntity<BookErrorResDto> handleBookNotCreatedException(BookNotCreatedException e) {
-        var response = new BookErrorResDto(
-                e.getMessage(),
-                LocalDateTime.now()
-        );
-        log.error("{} - Exception caught - {}", response.date(), response.message());
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 }
