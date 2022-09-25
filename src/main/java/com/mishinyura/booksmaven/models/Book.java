@@ -18,7 +18,7 @@ import javax.validation.constraints.Size;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "book")
+@Table(name = "books")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,7 @@ public class Book {
     @Pattern(regexp = "[A-Z]\\w+", message = "Incorrect pattern!")
     @NotEmpty(message = "Title should not be empty!")
     @Size(min = 2, max = 50, message = "Title should be between 2 and 50!")
-    @Column(name = "title", nullable = false)
+    @Column(name = "title", unique = true, nullable = false)
     private String title;
 
     public Book(String title) {
