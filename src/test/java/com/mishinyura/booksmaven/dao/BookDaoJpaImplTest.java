@@ -8,10 +8,14 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Tests BookDaoJpaImpl.class")
+@Sql({
+        "classpath:sql/data.sql"
+})
 @DataJpaTest
 @Import(BookDaoJpaImpl.class)
 @ActiveProfiles("test-orm")
@@ -25,7 +29,7 @@ class BookDaoJpaImplTest {
     @DisplayName("tests count()")
     @Test
     void shouldGetBooksCount() {
-        var expectedCount = 0L;
+        var expectedCount = 1L;
 
         var actualCount = bookDaoJpa.getBooksCount();
 
@@ -34,15 +38,15 @@ class BookDaoJpaImplTest {
                 .isEqualTo(expectedCount);
     }
 
-    @DisplayName("findAllBooks()")
+    @DisplayName("tests findAllBooks()")
     @Test
     void shouldFindAllBooks() {
-        em.persist(new Book("TitleTest1"));
-
         var books = bookDaoJpa.findAllBooks();
 
         assertThat(books)
                 .isNotEmpty()
-                .hasSize(1);
+                .hasSize(1)
+                .map(Book::getTitle)
+                .contains("Title1_H2");
     }
 }
