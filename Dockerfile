@@ -3,4 +3,4 @@ RUN mkdir /project
 COPY . /project
 WORKDIR /project
 RUN mvn clean package -DskipTests
-CMD ["java", "-jar", "target/booksmaven-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "target/booksmaven.jar"]
