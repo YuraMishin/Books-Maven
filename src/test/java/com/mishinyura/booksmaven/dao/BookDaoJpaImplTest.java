@@ -1,9 +1,9 @@
 package com.mishinyura.booksmaven.dao;
 
 import com.mishinyura.booksmaven.models.Book;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
@@ -19,12 +19,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @Import(BookDaoJpaImpl.class)
 @ActiveProfiles("test-orm")
+@RequiredArgsConstructor
 class BookDaoJpaImplTest {
-    @Autowired
-    TestEntityManager em;
+    private final TestEntityManager em;
 
-    @Autowired
-    BookDaoJpaImpl bookDaoJpa;
+    private final BookDaoJpaImpl bookDaoJpa;
 
     @DisplayName("tests count()")
     @Test

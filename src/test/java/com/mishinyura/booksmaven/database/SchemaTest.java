@@ -1,8 +1,8 @@
 package com.mishinyura.booksmaven.database;
 
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -17,9 +17,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("Tests Database schema")
 @JdbcTest
 @ActiveProfiles("test-jdbc")
+@RequiredArgsConstructor
 class SchemaTest {
-    @Autowired
-    private DataSource dataSource;
+    private final DataSource dataSource;
 
     @DisplayName("tests database has hibernate tables")
     @Test
