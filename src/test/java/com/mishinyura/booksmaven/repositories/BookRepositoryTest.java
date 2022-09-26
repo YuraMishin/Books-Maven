@@ -19,10 +19,13 @@ class BookRepositoryTest {
     @DisplayName("tests count()")
     @Test
     void shouldGetBooksCount() {
+        // given
         var expectedCount = 0L;
 
+        // when
         var actualCount = bookRepository.count();
 
+        // then
         assertThat(actualCount)
                 .as("Error in count()")
                 .isEqualTo(expectedCount);
@@ -31,11 +34,14 @@ class BookRepositoryTest {
     @DisplayName("tests findAllBooks()")
     @Test
     void shouldFindAllBooks() {
+        // given
         bookRepository.save(new Book("Title1"));
         var sizeExpected = 1;
 
+        // when
         var books = bookRepository.findAllBooks();
 
+        // then
         assertThat(books)
                 .isNotEmpty()
                 .hasSize(sizeExpected);

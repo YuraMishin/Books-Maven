@@ -1,6 +1,5 @@
 package com.mishinyura.booksmaven.services;
 
-import com.mishinyura.booksmaven.dao.BookDaoJpaImpl;
 import com.mishinyura.booksmaven.dto.BookReqDto;
 import com.mishinyura.booksmaven.dto.BookResDto;
 import com.mishinyura.booksmaven.exceptions.BookNotCreatedException;

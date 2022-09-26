@@ -7,15 +7,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Tests Book.class")
 class BookTest {
-
     @DisplayName("tests getTitle()")
     @Test
     void shouldTestGetTitle() {
+        // given
         var titleExpected = "Title";
         var book = new Book(titleExpected);
 
+        // when
         var titleActual = book.getTitle();
 
+        // then
         assertThat(titleActual).isEqualTo(titleExpected);
     }
 }

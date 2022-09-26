@@ -24,10 +24,12 @@ class SchemaTest {
     @DisplayName("tests database has hibernate tables")
     @Test
     void shouldTestSchema() throws Exception {
+        // given
         Set<String> tablesExpected = Set.of(
                 "BOOKS"
         );
 
+        // when
         Set<String> tablesActual = new HashSet<>();
         try (ResultSet rs = Objects.requireNonNull(dataSource.getConnection().getMetaData()
                 .getTables(null, null, null, new String[]{"TABLE"}))) {
@@ -36,6 +38,7 @@ class SchemaTest {
             }
         }
 
+        // then
         assertThat(tablesActual).containsAll(tablesExpected);
     }
 }
