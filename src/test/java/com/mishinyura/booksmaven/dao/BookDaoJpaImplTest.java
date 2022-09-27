@@ -29,7 +29,7 @@ class BookDaoJpaImplTest {
     @Test
     void shouldGetBooksCount() {
         // given
-        var expectedCount = 1L;
+        var expectedCount = 2L;
 
         // when
         var actualCount = bookDaoJpa.getBooksCount();
@@ -49,7 +49,7 @@ class BookDaoJpaImplTest {
         // then
         assertThat(books)
                 .isNotEmpty()
-                .hasSize(1)
+                .hasSize(2)
                 .map(Book::getTitle)
                 .contains("Title1_H2");
     }

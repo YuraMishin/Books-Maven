@@ -20,7 +20,7 @@ class BookRepositoryTest {
     @Test
     void shouldGetBooksCount() {
         // given
-        var expectedCount = 0L;
+        var expectedCount = 1L;
 
         // when
         var actualCount = bookRepository.count();
@@ -36,7 +36,7 @@ class BookRepositoryTest {
     void shouldFindAllBooks() {
         // given
         bookRepository.save(new Book("Title1"));
-        var sizeExpected = 1;
+        var sizeExpected = 2;
 
         // when
         var books = bookRepository.findAllBooks();

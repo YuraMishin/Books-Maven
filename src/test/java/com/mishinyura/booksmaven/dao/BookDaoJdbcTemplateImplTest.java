@@ -25,7 +25,7 @@ class BookDaoJdbcTemplateImplTest {
     @Test
     void shouldGetBooksCount() {
         // given
-        var expectedCount = 1L;
+        var expectedCount = 2L;
 
         // when
         var actualCount = bookDaoJdbc.getBooksCount();
