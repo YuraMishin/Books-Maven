@@ -2,6 +2,7 @@ package com.mishinyura.booksmaven.controllers;
 
 import com.mishinyura.booksmaven.dto.BookResDto;
 import com.mishinyura.booksmaven.services.BookService;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,10 +25,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @DisplayName("Tests BookController.class")
+@RequiredArgsConstructor
 @WebMvcTest(BookController.class)
 class BookControllerTest {
-    @Autowired
-    private MockMvc mockMvc;
+    private final MockMvc mockMvc;
 
     @MockBean
     private BookService bookService;
