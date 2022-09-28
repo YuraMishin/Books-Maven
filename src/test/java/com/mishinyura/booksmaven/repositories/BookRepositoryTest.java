@@ -46,4 +46,21 @@ class BookRepositoryTest {
                 .isNotEmpty()
                 .hasSize(sizeExpected);
     }
+
+    @DisplayName("tests findById()")
+    @Test
+    void shouldTestFindById() {
+        // given
+        var bookExpected = new Book("Title1");
+        bookRepository.save(bookExpected);
+
+        // when
+        var bookActual = bookRepository.findById(2L).get();
+
+        // then
+        assertThat(bookActual)
+                .isNotNull()
+                .isInstanceOf(Book.class);
+        assertThat(bookActual.getTitle()).isEqualTo(bookExpected.getTitle());
+    }
 }
