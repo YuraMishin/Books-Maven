@@ -29,7 +29,7 @@ public class BookRestController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<BookResDto> findAllUsers() {
+    public List<BookResDto> findAllBooks() {
         return bookService.findAllBooks();
     }
 
@@ -41,7 +41,7 @@ public class BookRestController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public BookResDto createUser(@RequestBody @Valid BookReqDto bookReqDto, BindingResult bindingResult) {
+    public BookResDto createBook(@RequestBody @Valid BookReqDto bookReqDto, BindingResult bindingResult) {
         return bookService.createBook(bookReqDto, bindingResult);
     }
 }

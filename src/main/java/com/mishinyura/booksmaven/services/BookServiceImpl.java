@@ -4,6 +4,7 @@ import com.mishinyura.booksmaven.dto.BookReqDto;
 import com.mishinyura.booksmaven.dto.BookResDto;
 import com.mishinyura.booksmaven.exceptions.BookNotCreatedException;
 import com.mishinyura.booksmaven.exceptions.BookNotFoundException;
+import com.mishinyura.booksmaven.exceptions.BookNotFoundExceptionMVC;
 import com.mishinyura.booksmaven.models.Book;
 import com.mishinyura.booksmaven.repositories.BookRepository;
 import com.mishinyura.booksmaven.utils.BookValidator;
@@ -60,7 +61,7 @@ public class BookServiceImpl implements BookService {
             model.addAttribute("book", bookResDto);
             return page;
         }
-        return "redirect:/books/";
+        throw new BookNotFoundExceptionMVC("Book not found !");
     }
 
     @Transactional

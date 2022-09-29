@@ -13,8 +13,8 @@ public class ApplicationRunner implements CommandLineRunner {
     private final ApplicationContext ctx;
 
     @Override
-    public void run(String... args) throws Exception {
-        log.debug("Hello, World!");
+    public void run(String... args) {
+        log.debug("Hello from ApplicationRunner.class");
         log.debug(ctx.getId());
     }
 }
