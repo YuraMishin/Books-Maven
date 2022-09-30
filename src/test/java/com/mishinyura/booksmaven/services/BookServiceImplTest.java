@@ -7,12 +7,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @DisplayName("Tests BookServiceImpl.class")
 @ExtendWith(MockitoExtension.class)
+@ActiveProfiles("test-orm")
 class BookServiceImplTest {
     @Mock
     private BookRepository bookRepository;

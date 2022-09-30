@@ -5,6 +5,7 @@ import com.mishinyura.booksmaven.dto.BookResDto;
 import com.mishinyura.booksmaven.models.Book;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Tests BookMapper.class")
+@ActiveProfiles("test-orm")
 class BookMapperTest {
     @DisplayName("tests bookDtoReqToBook()")
     @Test

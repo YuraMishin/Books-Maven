@@ -2,10 +2,12 @@ package com.mishinyura.booksmaven.models;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Tests Book.class")
+@ActiveProfiles("test-orm")
 class BookTest {
     @DisplayName("tests getTitle()")
     @Test
