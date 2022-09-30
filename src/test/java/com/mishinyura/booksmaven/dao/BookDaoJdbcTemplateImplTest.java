@@ -21,13 +21,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 class BookDaoJdbcTemplateImplTest {
     private final BookDao bookDaoJdbc;
 
-    @DisplayName("tests count()")
+    @DisplayName("tests getBooksCount()")
     @Test
     void shouldGetBooksCount() {
-        var expectedCount = 1L;
+        // given
+        var expectedCount = 2L;
 
+        // when
         var actualCount = bookDaoJdbc.getBooksCount();
 
+        // then
         assertThat(actualCount)
                 .as("Error in count()")
                 .isEqualTo(expectedCount);

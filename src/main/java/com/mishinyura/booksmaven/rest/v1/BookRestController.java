@@ -3,7 +3,6 @@ package com.mishinyura.booksmaven.rest.v1;
 import com.mishinyura.booksmaven.dto.BookReqDto;
 import com.mishinyura.booksmaven.dto.BookResDto;
 import com.mishinyura.booksmaven.services.BookService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
@@ -19,7 +18,6 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Slf4j
-@RequiredArgsConstructor
 @RestController
 @RequestMapping(BookRestController.BASE_URL)
 public class BookRestController {
@@ -27,9 +25,13 @@ public class BookRestController {
 
     private final BookService bookService;
 
+    public BookRestController(BookService bookService) {
+        this.bookService = bookService;
+    }
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<BookResDto> findAllUsers() {
+    public List<BookResDto> findAllBooks() {
         return bookService.findAllBooks();
     }
 
@@ -41,7 +43,7 @@ public class BookRestController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public BookResDto createUser(@RequestBody @Valid BookReqDto bookReqDto, BindingResult bindingResult) {
+    public BookResDto createBook(@RequestBody @Valid BookReqDto bookReqDto, BindingResult bindingResult) {
         return bookService.createBook(bookReqDto, bindingResult);
     }
 }

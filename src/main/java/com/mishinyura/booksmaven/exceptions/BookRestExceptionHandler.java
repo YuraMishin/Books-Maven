@@ -11,9 +11,9 @@ import java.time.LocalDateTime;
 
 @Slf4j
 @ControllerAdvice
-public class BookGlobalExceptionHandler {
-    @ExceptionHandler
-    private ResponseEntity<BookErrorResDto> handleBookNotFoundException(BookNotFoundException e) {
+public class BookRestExceptionHandler {
+    @ExceptionHandler(BookNotFoundException.class)
+    private ResponseEntity<BookErrorResDto> handleBookNotFoundException(Exception e) {
         var response = new BookErrorResDto(
                 "Book not found !",
                 LocalDateTime.now()
@@ -22,8 +22,8 @@ public class BookGlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler
-    private ResponseEntity<BookErrorResDto> handleBookNotCreatedException(BookNotCreatedException e) {
+    @ExceptionHandler(BookNotCreatedException.class)
+    private ResponseEntity<BookErrorResDto> handleBookNotCreatedException(Exception e) {
         var response = new BookErrorResDto(
                 e.getMessage(),
                 LocalDateTime.now()

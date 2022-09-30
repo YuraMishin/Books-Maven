@@ -25,13 +25,16 @@ class BookDaoJpaImplTest {
 
     private final BookDaoJpaImpl bookDaoJpa;
 
-    @DisplayName("tests count()")
+    @DisplayName("tests getBooksCount()")
     @Test
     void shouldGetBooksCount() {
+        // given
         var expectedCount = 1L;
 
+        // when
         var actualCount = bookDaoJpa.getBooksCount();
 
+        // then
         assertThat(actualCount)
                 .as("Error in count()")
                 .isEqualTo(expectedCount);
@@ -40,8 +43,10 @@ class BookDaoJpaImplTest {
     @DisplayName("tests findAllBooks()")
     @Test
     void shouldFindAllBooks() {
+        // when
         var books = bookDaoJpa.findAllBooks();
 
+        // then
         assertThat(books)
                 .isNotEmpty()
                 .hasSize(1)
