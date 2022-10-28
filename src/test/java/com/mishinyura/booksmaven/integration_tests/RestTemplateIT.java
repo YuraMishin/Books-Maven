@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Tests BookRestController.class")
-@ActiveProfiles("test-orm")
+@ActiveProfiles("test-h2")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class RestTemplateIT {
     @LocalServerPort

@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisplayName("Tests BookController.class")
 @RequiredArgsConstructor
 @WebMvcTest(BookController.class)
-@ActiveProfiles("test-orm")
+@ActiveProfiles("test-h2")
 class BookControllerTest {
     private final MockMvc mockMvc;
 

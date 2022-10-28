@@ -14,7 +14,7 @@ import static org.mockito.Mockito.*;
 
 @DisplayName("Tests BookServiceImpl.class")
 @ExtendWith(MockitoExtension.class)
-@ActiveProfiles("test-orm")
+@ActiveProfiles("test-h2")
 class BookServiceImplTest {
     @Mock
     private BookRepository bookRepository;

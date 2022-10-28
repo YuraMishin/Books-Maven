@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Tests BookRepository.class")
 @DataJpaTest
-@ActiveProfiles("test-orm")
+@ActiveProfiles("test-h2")
 class BookRepositoryTest {
     @Autowired
     private BookRepository bookRepository;
