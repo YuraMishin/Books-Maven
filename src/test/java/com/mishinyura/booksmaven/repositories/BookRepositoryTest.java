@@ -62,7 +62,7 @@ class BookRepositoryTest {
         // then
         assertThat(bookActual)
                 .isNotNull()
-                .isInstanceOf(Book.class);
-        assertThat(bookActual.getTitle()).isEqualTo(bookExpected.getTitle());
+                .isInstanceOf(Book.class)
+                .hasFieldOrPropertyWithValue("title", bookExpected.getTitle());
     }
 }
