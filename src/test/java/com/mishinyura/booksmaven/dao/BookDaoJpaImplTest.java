@@ -13,12 +13,9 @@ import org.springframework.test.context.jdbc.Sql;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Tests BookDaoJpaImpl.class")
-@Sql({
-        "classpath:sql/data.sql"
-})
 @DataJpaTest
 @Import(BookDaoJpaImpl.class)
-@ActiveProfiles("test-orm")
+@ActiveProfiles("test-h2")
 @RequiredArgsConstructor
 class BookDaoJpaImplTest {
     private final TestEntityManager em;
@@ -51,6 +48,6 @@ class BookDaoJpaImplTest {
                 .isNotEmpty()
                 .hasSize(1)
                 .map(Book::getTitle)
-                .contains("Title1_H2");
+                .contains("Title_liquibase");
     }
 }

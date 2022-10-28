@@ -1,0 +1,27 @@
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: -1
+    context-path: /
+    encoding:
+      charset: utf-8
+
+spring:
+  application:
+    name: Books Project
+  profiles:
+    active: dev-h2
+#   active: dev-postgres
+  main:
+    banner-mode: off
+  banner:
+    image:
+      location: banner.txt
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  jackson:
+    serialization:
+      indent-output: true

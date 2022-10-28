@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @DisplayName("Tests BookRestController.class")
 @RequiredArgsConstructor
 @WebMvcTest(BookRestController.class)
-@ActiveProfiles("test-orm")
+@ActiveProfiles("test-h2")
 class BookRestControllerTest {
     private final MockMvc mockMvc;
 

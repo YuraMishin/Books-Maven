@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Tests BookRestController.class")
-@ActiveProfiles("test-orm")
+@ActiveProfiles("test-h2")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class RestTemplateIT {
     @LocalServerPort
@@ -29,7 +29,7 @@ class RestTemplateIT {
                 "http://localhost:%s/api/v1/books/1",
                 randomServerPort
         );
-        var bookExpected = new BookResDto(1L, "TitleBookSeeder");
+        var bookExpected = new BookResDto(1L, "Title_liquibase");
 
         // when
         var bookActual = restTemplate.getForObject(endpoint, BookResDto.class);

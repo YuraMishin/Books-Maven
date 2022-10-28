@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Tests BookRepository.class")
 @DataJpaTest
-@ActiveProfiles("test-orm")
+@ActiveProfiles("test-h2")
 class BookRepositoryTest {
     @Autowired
     private BookRepository bookRepository;
@@ -21,7 +21,7 @@ class BookRepositoryTest {
     @Test
     void shouldGetBooksCount() {
         // given
-        var expectedCount = 0L;
+        var expectedCount = 1L;
 
         // when
         var actualCount = bookRepository.count();
@@ -37,7 +37,7 @@ class BookRepositoryTest {
     void shouldFindAllBooks() {
         // given
         bookRepository.save(new Book("Title1"));
-        var sizeExpected = 1;
+        var sizeExpected = 2;
 
         // when
         var books = bookRepository.findAllBooks();
@@ -62,7 +62,7 @@ class BookRepositoryTest {
         // then
         assertThat(bookActual)
                 .isNotNull()
-                .isInstanceOf(Book.class);
-        assertThat(bookActual.getTitle()).isEqualTo(bookExpected.getTitle());
+                .isInstanceOf(Book.class)
+                .hasFieldOrPropertyWithValue("title", bookExpected.getTitle());
     }
 }

@@ -1,0 +1,29 @@
+logging:
+  level:
+    root: error
+    com.mishinyura.booksmaven: debug
+  file:
+    name: logs/application.log
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/books?currentSchema=public
+    username: postgres
+    password: postgres
+    hikari:
+      leak-detection-threshold: 60000
+      maximum-pool-size: 5
+      connection-timeout: 20000
+  jpa:
+    show-sql: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.yaml
