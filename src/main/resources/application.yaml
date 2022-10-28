@@ -11,8 +11,8 @@ spring:
   application:
     name: Books Project
   profiles:
-    #    active: dev-h2
-    active: dev-postgres
+    active: dev-h2
+#   active: dev-postgres
   main:
     banner-mode: off
   banner:
