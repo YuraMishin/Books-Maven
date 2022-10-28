@@ -1,5 +1,5 @@
 databaseChangeLog:
   - include:
-      file: db/changelog/db.changelog-1.0-createTableBooks.sql
+      file: db/changelog/createTableBooks.sql
   - include:
-      file: db/changelog/db.changelog-2.0-seedTableBooks.sql
+      file: db/changelog/seedTableBooks.sql
