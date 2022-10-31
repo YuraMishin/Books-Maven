@@ -1,6 +1,7 @@
 package com.mishinyura.booksmaven.services;
 
 import com.mishinyura.booksmaven.repositories.BookRepository;
+import com.mishinyura.booksmaven.services.impl.BookServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -2,7 +2,8 @@ package com.mishinyura.booksmaven.utils;
 
 import com.mishinyura.booksmaven.dto.BookReqDto;
 import com.mishinyura.booksmaven.dto.BookResDto;
-import com.mishinyura.booksmaven.models.Book;
+import com.mishinyura.booksmaven.entities.Book;
+import com.mishinyura.booksmaven.utils.mappers.BookMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.ActiveProfiles;
@@ -23,7 +24,7 @@ class BookMapperTest {
         bookReqDto.setTitle("Title1");
 
         // when
-        var book = BookMapper.INSTANCE.bookDtoReqToBook(bookReqDto);
+        var book = BookMapper.INSTANCE.mapToBook(bookReqDto);
 
         // then
         assertThat(book)
@@ -36,10 +37,10 @@ class BookMapperTest {
     @Test
     void shouldTestBookToBookResDto() {
         // given
-        var book = new Book("Title1");
+        var book = new Book().setTitle("Title1");
 
         // when
-        var bookResDto = BookMapper.INSTANCE.bookToBookResDto(book);
+        var bookResDto = BookMapper.INSTANCE.mapToBookResDto(book);
 
         // then
         assertThat(bookResDto)
@@ -53,7 +54,7 @@ class BookMapperTest {
     void shouldTestGetListOfBookResDto() {
         // given
         var books = new ArrayList<Book>(List.of(
-                new Book("Title1"))
+                new Book().setTitle("Title1"))
         );
 
         // when

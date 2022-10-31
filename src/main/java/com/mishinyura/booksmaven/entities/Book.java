@@ -1,8 +1,9 @@
-package com.mishinyura.booksmaven.models;
+package com.mishinyura.booksmaven.entities;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +19,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @NoArgsConstructor
+@Accessors(chain = true)
 @Entity
 @Table(name = "books")
 public class Book {
@@ -31,8 +33,4 @@ public class Book {
     @Size(min = 2, max = 50, message = "Title should be between 2 and 50!")
     @Column(name = "title", unique = true, nullable = false)
     private String title;
-
-    public Book(String title) {
-        this.title = title;
-    }
 }

@@ -1,6 +1,6 @@
 package com.mishinyura.booksmaven.dao;
 
-import com.mishinyura.booksmaven.models.Book;
+import com.mishinyura.booksmaven.entities.Book;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

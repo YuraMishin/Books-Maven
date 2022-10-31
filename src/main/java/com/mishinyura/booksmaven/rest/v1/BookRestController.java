@@ -43,7 +43,7 @@ public class BookRestController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public BookResDto createBook(@RequestBody @Valid BookReqDto bookReqDto, BindingResult bindingResult) {
-        return bookService.createBook(bookReqDto, bindingResult);
+    public void createBook(@RequestBody @Valid BookReqDto bookReqDto, BindingResult bindingResult) {
+        bookService.createBook(bookReqDto, bindingResult);
     }
 }

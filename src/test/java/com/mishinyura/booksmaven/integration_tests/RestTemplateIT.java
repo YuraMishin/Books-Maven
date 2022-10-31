@@ -29,7 +29,9 @@ class RestTemplateIT {
                 "http://localhost:%s/api/v1/books/1",
                 randomServerPort
         );
-        var bookExpected = new BookResDto(1L, "Title_liquibase");
+        var bookExpected = new BookResDto()
+                .setId(1L)
+                .setTitle("Title_liquibase");
 
         // when
         var bookActual = restTemplate.getForObject(endpoint, BookResDto.class);

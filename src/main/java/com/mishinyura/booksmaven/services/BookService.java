@@ -2,7 +2,7 @@ package com.mishinyura.booksmaven.services;
 
 import com.mishinyura.booksmaven.dto.BookReqDto;
 import com.mishinyura.booksmaven.dto.BookResDto;
-import com.mishinyura.booksmaven.models.Book;
+import com.mishinyura.booksmaven.entities.Book;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
@@ -20,7 +20,7 @@ public interface BookService {
 
     String findBookByIdMVC(Model model, Long id, String page);
 
-    BookResDto createBook(BookReqDto book, BindingResult bindingResult);
+    void createBook(BookReqDto book, BindingResult bindingResult);
 
     String createBookMVC(BookReqDto book, BindingResult bindingResult);
 

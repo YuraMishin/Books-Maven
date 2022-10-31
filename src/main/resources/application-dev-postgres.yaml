@@ -2,8 +2,8 @@ logging:
   level:
     root: error
     com.mishinyura.booksmaven: debug
-  file:
-    name: logs/application.log
+#  file:
+#    name: logs/application.log
 
 spring:
   datasource:

@@ -1,4 +1,4 @@
-package com.mishinyura.booksmaven.exceptions;
+package com.mishinyura.booksmaven.utils.exceptions;
 
 public class BookNotCreatedException extends RuntimeException {
     public BookNotCreatedException(final String message) {
