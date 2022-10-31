@@ -1,13 +1,14 @@
-package com.mishinyura.booksmaven.services;
+package com.mishinyura.booksmaven.services.impl;
 
 import com.mishinyura.booksmaven.dto.BookReqDto;
 import com.mishinyura.booksmaven.dto.BookResDto;
-import com.mishinyura.booksmaven.exceptions.BookNotCreatedException;
-import com.mishinyura.booksmaven.exceptions.BookNotFoundException;
-import com.mishinyura.booksmaven.exceptions.BookNotFoundExceptionMVC;
-import com.mishinyura.booksmaven.models.Book;
+import com.mishinyura.booksmaven.entities.Book;
 import com.mishinyura.booksmaven.repositories.BookRepository;
-import com.mishinyura.booksmaven.utils.BookValidator;
+import com.mishinyura.booksmaven.services.BookService;
+import com.mishinyura.booksmaven.utils.exceptions.BookNotCreatedException;
+import com.mishinyura.booksmaven.utils.exceptions.BookNotFoundException;
+import com.mishinyura.booksmaven.utils.exceptions.BookNotFoundExceptionMVC;
+import com.mishinyura.booksmaven.utils.validators.BookValidator;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -66,7 +67,7 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
-    public BookResDto createBook(BookReqDto book, BindingResult bindingResult) {
+    public void createBook(BookReqDto book, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             var errorMsg = new StringBuilder();
             List<FieldError> errors = bindingResult.getFieldErrors();
@@ -79,8 +80,7 @@ public class BookServiceImpl implements BookService {
             throw new BookNotCreatedException(errorMsg.toString().trim());
         }
         var bookToSave = modelMapper.map(book, Book.class);
-        var bookSaved = bookRepository.save(bookToSave);
-        return modelMapper.map(bookSaved, BookResDto.class);
+        bookRepository.save(bookToSave);
     }
 
     @Transactional

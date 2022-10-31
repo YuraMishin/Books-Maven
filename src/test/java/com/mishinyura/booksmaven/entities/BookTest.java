@@ -1,4 +1,4 @@
-package com.mishinyura.booksmaven.models;
+package com.mishinyura.booksmaven.entities;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,8 @@ class BookTest {
     void shouldTestGetTitle() {
         // given
         var titleExpected = "Title";
-        var book = new Book(titleExpected);
+        var book = new Book()
+                .setTitle(titleExpected);
 
         // when
         var titleActual = book.getTitle();

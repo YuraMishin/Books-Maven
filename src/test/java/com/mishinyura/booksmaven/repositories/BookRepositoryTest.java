@@ -1,6 +1,6 @@
 package com.mishinyura.booksmaven.repositories;
 
-import com.mishinyura.booksmaven.models.Book;
+import com.mishinyura.booksmaven.entities.Book;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ class BookRepositoryTest {
     @Test
     void shouldFindAllBooks() {
         // given
-        bookRepository.save(new Book("Title1"));
+        bookRepository.save(new Book().setTitle("Title1"));
         var sizeExpected = 2;
 
         // when
@@ -53,7 +53,7 @@ class BookRepositoryTest {
     @Test
     void shouldTestFindById() {
         // given
-        var bookExpected = new Book("Title1");
+        var bookExpected = new Book().setTitle("Title1");
         var bookSaved = bookRepository.save(bookExpected);
 
         // when

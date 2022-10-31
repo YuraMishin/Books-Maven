@@ -45,7 +45,7 @@ class BookControllerTest {
         var bookController = new BookController(bookService);
         var viewNameExpected = "book/index";
         var books = new ArrayList<>(List.of(
-                new BookResDto(1L, "Title1")
+                new BookResDto().setId(1L).setTitle("Title1")
         ));
         when(bookService.findAllBooks()).thenReturn(books);
         var argumentCaptor = ArgumentCaptor.forClass(ArrayList.class);
@@ -72,7 +72,7 @@ class BookControllerTest {
         var path = "/books";
         var viewName = "book/index";
         var books = new ArrayList<>(List.of(
-                new BookResDto(1L, "Title1")
+                new BookResDto().setId(1L).setTitle("Title1")
         ));
         when(bookService.findAllBooks()).thenReturn(books);
 

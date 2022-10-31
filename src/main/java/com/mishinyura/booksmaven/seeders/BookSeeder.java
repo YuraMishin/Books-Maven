@@ -1,6 +1,5 @@
 package com.mishinyura.booksmaven.seeders;
 
-import com.mishinyura.booksmaven.models.Book;
 import com.mishinyura.booksmaven.services.BookService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

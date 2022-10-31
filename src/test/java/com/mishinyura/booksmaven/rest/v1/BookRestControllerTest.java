@@ -42,7 +42,7 @@ class BookRestControllerTest {
     void shouldTestFindBookById_V1() throws Exception {
         // given
         var endpoint = "/api/v1/books/1";
-        var bookExpected = new BookResDto(1L, "Title1");
+        var bookExpected = new BookResDto();
         when(bookService.findBookById(anyLong())).thenReturn(bookExpected);
 
         // when
@@ -69,7 +69,7 @@ class BookRestControllerTest {
     void shouldTestFindBookById_V2() throws Exception {
         // given
         var endpoint = "/api/v1/books/1";
-        var bookExpected = new BookResDto(1L, "Title1");
+        var bookExpected = new BookResDto().setId(1L).setTitle("Title1");
         when(bookService.findBookById(anyLong())).thenReturn(bookExpected);
 
         // when
@@ -96,7 +96,7 @@ class BookRestControllerTest {
     void shouldTestFindBookById_V3() throws Exception {
         // given
         var endpoint = "/api/v1/books/1";
-        var bookExpected = new BookResDto(1L, "Title1");
+        var bookExpected = new BookResDto().setId(1L).setTitle("Title1");
         when(bookService.findBookById(anyLong())).thenReturn(bookExpected);
 
         // when

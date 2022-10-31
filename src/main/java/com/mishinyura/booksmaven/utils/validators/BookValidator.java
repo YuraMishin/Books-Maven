@@ -1,4 +1,4 @@
-package com.mishinyura.booksmaven.utils;
+package com.mishinyura.booksmaven.utils.validators;
 
 import com.mishinyura.booksmaven.dto.BookReqDto;
 import com.mishinyura.booksmaven.repositories.BookRepository;
