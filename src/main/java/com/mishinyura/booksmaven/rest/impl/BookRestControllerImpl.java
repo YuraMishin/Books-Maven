@@ -1,16 +1,16 @@
-package com.mishinyura.booksmaven.rest.v1;
+package com.mishinyura.booksmaven.rest.impl;
 
 import com.mishinyura.booksmaven.dto.BookReqDto;
 import com.mishinyura.booksmaven.dto.BookResDto;
+import com.mishinyura.booksmaven.rest.BookRestController;
 import com.mishinyura.booksmaven.services.BookService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,25 +19,20 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(BookRestController.BASE_URL)
-public class BookRestController {
-    public static final String BASE_URL = "/api/v1/books";
-
+@RequiredArgsConstructor
+public class BookRestControllerImpl implements BookRestController {
     private final BookService bookService;
 
-    public BookRestController(BookService bookService) {
-        this.bookService = bookService;
-    }
-
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<BookResDto> findAllBooks() {
+    @Override
+    public List<BookResDto> getAllBooks() {
+        log.info("executed getAllBooks() method");
         return bookService.findAllBooks();
     }
 
-    @GetMapping("{id}")
-    @ResponseStatus(HttpStatus.FOUND)
-    public BookResDto findBookById(@PathVariable Long id) {
+
+    @Override
+    public BookResDto getBookById(@PathVariable Long id) {
+        log.info("executed getBookById() method");
         return bookService.findBookById(id);
     }
 
