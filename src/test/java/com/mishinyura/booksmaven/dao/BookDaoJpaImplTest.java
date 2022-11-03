@@ -4,6 +4,7 @@ import com.mishinyura.booksmaven.entities.Book;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
@@ -11,10 +12,11 @@ import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisplayName("Tests BookDaoJpaImpl.class")
+@DisplayName("Tests BookDaoJpaImpl")
 @DataJpaTest
 @Import(BookDaoJpaImpl.class)
-@ActiveProfiles("test-h2")
+@ActiveProfiles("test")
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @RequiredArgsConstructor
 class BookDaoJpaImplTest {
     private final TestEntityManager em;

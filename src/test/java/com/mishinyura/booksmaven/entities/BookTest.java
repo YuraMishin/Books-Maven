@@ -6,8 +6,8 @@ import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisplayName("Tests Book.class")
-@ActiveProfiles("test-h2")
+@DisplayName("Tests Book")
+@ActiveProfiles("test")
 class BookTest {
     @DisplayName("tests getTitle()")
     @Test

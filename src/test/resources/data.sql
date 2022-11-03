@@ -1,2 +1,2 @@
 -- data
-select CURRENT_DATE
+select 1
