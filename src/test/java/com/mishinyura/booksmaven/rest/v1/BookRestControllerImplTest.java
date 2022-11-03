@@ -2,6 +2,7 @@ package com.mishinyura.booksmaven.rest.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mishinyura.booksmaven.dto.BookResDto;
+import com.mishinyura.booksmaven.rest.BookRestController;
 import com.mishinyura.booksmaven.services.BookService;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @RequiredArgsConstructor
 @WebMvcTest(BookRestController.class)
 @ActiveProfiles("test-h2")
-class BookRestControllerTest {
+class BookRestControllerImplTest {
     private final MockMvc mockMvc;
 
     private final WebTestClient webTestClient;
