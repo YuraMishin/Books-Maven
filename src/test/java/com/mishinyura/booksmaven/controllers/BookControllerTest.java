@@ -5,11 +5,7 @@ import com.mishinyura.booksmaven.services.BookService;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
@@ -25,10 +21,10 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@DisplayName("Tests BookController.class")
+@DisplayName("Tests BookController")
 @RequiredArgsConstructor
 @WebMvcTest(BookController.class)
-@ActiveProfiles("test-h2")
+@ActiveProfiles("test")
 class BookControllerTest {
     private final MockMvc mockMvc;
 

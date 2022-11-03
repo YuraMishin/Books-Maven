@@ -1,3 +1,3 @@
 -- data
---select CURRENT_DATE
-insert into books(title) values ('TitleData.sql');
+select 1;
+--insert into books(title) values ('TitleData.sql');

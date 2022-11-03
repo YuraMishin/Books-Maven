@@ -13,9 +13,9 @@ import org.springframework.test.context.ActiveProfiles;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-@DisplayName("Tests BookServiceImpl.class")
+@DisplayName("Tests BookServiceImpl")
 @ExtendWith(MockitoExtension.class)
-@ActiveProfiles("test-h2")
+@ActiveProfiles("test")
 class BookServiceImplTest {
     @Mock
     private BookRepository bookRepository;

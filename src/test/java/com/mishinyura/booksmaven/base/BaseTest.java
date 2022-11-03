@@ -2,6 +2,7 @@ package com.mishinyura.booksmaven.base;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -9,10 +10,11 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+@DirtiesContext
 @Testcontainers
 @ActiveProfiles("test")
-public abstract class TestBase {
-    protected static final Logger log = LoggerFactory.getLogger(TestBase.class);
+public abstract class BaseTest {
+    protected static final Logger log = LoggerFactory.getLogger(BaseTest.class);
 
     @Container
     private static final PostgreSQLContainer<?> CONTAINER =

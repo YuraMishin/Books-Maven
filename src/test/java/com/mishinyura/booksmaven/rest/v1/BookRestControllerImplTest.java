@@ -21,10 +21,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-@DisplayName("Tests BookRestController.class")
+@DisplayName("Tests BookRestController")
 @RequiredArgsConstructor
 @WebMvcTest(BookRestController.class)
-@ActiveProfiles("test-h2")
+@ActiveProfiles("test")
 class BookRestControllerImplTest {
     private final MockMvc mockMvc;
 

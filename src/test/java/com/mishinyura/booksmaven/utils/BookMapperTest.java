@@ -13,8 +13,8 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisplayName("Tests BookMapper.class")
-@ActiveProfiles("test-h2")
+@DisplayName("Tests BookMapper")
+@ActiveProfiles("test")
 class BookMapperTest {
     @DisplayName("tests bookDtoReqToBook()")
     @Test

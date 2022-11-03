@@ -1,19 +1,22 @@
 package com.mishinyura.booksmaven.repositories;
 
+import com.mishinyura.booksmaven.base.BaseTest;
 import com.mishinyura.booksmaven.entities.Book;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisplayName("Tests BookRepository.class")
+@DisplayName("Tests BookRepository")
 @DataJpaTest
-@ActiveProfiles("test-h2")
-class BookRepositoryTest {
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ActiveProfiles("test")
+class BookRepositoryTest extends BaseTest {
     @Autowired
     private BookRepository bookRepository;
 
@@ -36,8 +39,7 @@ class BookRepositoryTest {
     @Test
     void shouldFindAllBooks() {
         // given
-        bookRepository.save(new Book().setTitle("Title1"));
-        var sizeExpected = 2;
+        var sizeExpected = 1;
 
         // when
         var books = bookRepository.findAllBooks();
@@ -49,20 +51,18 @@ class BookRepositoryTest {
     }
 
     @DisplayName("tests findById()")
-    @DirtiesContext
     @Test
     void shouldTestFindById() {
         // given
-        var bookExpected = new Book().setTitle("Title1");
-        var bookSaved = bookRepository.save(bookExpected);
+        var titleExpected = "Title_liquibase";
 
         // when
-        var bookActual = bookRepository.findById(bookSaved.getId()).get();
+        var bookActual = bookRepository.findById(1L).get();
 
         // then
         assertThat(bookActual)
                 .isNotNull()
                 .isInstanceOf(Book.class)
-                .hasFieldOrPropertyWithValue("title", bookExpected.getTitle());
+                .hasFieldOrPropertyWithValue("title", titleExpected);
     }
 }

@@ -10,7 +10,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisplayName("Tests BookDaoJdbcImpl.class")
+@DisplayName("Tests BookDaoJdbcImpl")
 @Sql({
         "classpath:sql/data.sql"
 })
@@ -25,7 +25,7 @@ class BookDaoJdbcTemplateImplTest {
     @Test
     void shouldGetBooksCount() {
         // given
-        var expectedCount = 2L;
+        var expectedCount = 1L;
 
         // when
         var actualCount = bookDaoJdbc.getBooksCount();

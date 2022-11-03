@@ -6,3 +6,4 @@ create table books
     title varchar(255) not null,
     primary key (id)
 );
+--select 1;

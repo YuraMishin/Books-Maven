@@ -1,20 +1,19 @@
 package com.mishinyura.booksmaven.integration_tests;
 
+import com.mishinyura.booksmaven.base.BaseTest;
 import com.mishinyura.booksmaven.dto.BookResDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisplayName("Tests BookRestController.class")
-@ActiveProfiles("test-h2")
+@DisplayName("Tests BookRestController")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class RestTemplateIT {
+class RestTemplateIT extends BaseTest {
     @LocalServerPort
     int randomServerPort;
 
