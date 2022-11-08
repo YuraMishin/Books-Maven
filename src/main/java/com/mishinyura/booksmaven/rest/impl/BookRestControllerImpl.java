@@ -25,14 +25,12 @@ public class BookRestControllerImpl implements BookRestController {
 
     @Override
     public List<BookResDto> getAllBooks() {
-        log.info("executed getAllBooks() method");
         return bookService.findAllBooks();
     }
 
 
     @Override
     public BookResDto getBookById(@PathVariable Long id) {
-        log.info("executed getBookById() method");
         return bookService.findBookById(id);
     }
 
