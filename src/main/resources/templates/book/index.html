@@ -32,7 +32,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="book : ${books}">
-                    <td th:text="${book.id}"></td>
+                    <td>[[${book.id}]]</td>
                     <td th:text="${book.title}"></td>
                     <td><a th:href="@{/books/{id}(id=${book.id})}">View</a></td>
                     <td><a th:href="@{/books/{id}/edit(id=${book.id})}">Edit</a>

@@ -6,8 +6,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,6 +19,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 class BookRepositoryTest extends BaseTest {
     @Autowired
     private BookRepository bookRepository;
+
+    @Autowired
+    private TestEntityManager em;
 
     @DisplayName("tests count()")
     @Test
@@ -64,5 +67,64 @@ class BookRepositoryTest extends BaseTest {
                 .isNotNull()
                 .isInstanceOf(Book.class)
                 .hasFieldOrPropertyWithValue("title", titleExpected);
+    }
+
+    @DisplayName("tests save()")
+    @Test
+    void shouldTestSave() {
+        // given
+        var titleExpected = "Book2";
+        var book = new Book().setTitle(titleExpected);
+        var expectedId = 2L;
+
+        // when
+        var bookSaved = bookRepository.save(book);
+        var bookFound = em.find(Book.class, expectedId);
+
+        // then
+        assertThat(bookSaved)
+                .isNotNull()
+                .isInstanceOf(Book.class)
+                .hasFieldOrPropertyWithValue("title", titleExpected);
+
+        assertThat(bookSaved.getId())
+                .isPositive()
+                .isEqualTo(expectedId);
+
+        assertThat(bookSaved).isEqualTo(bookFound);
+    }
+
+    @DisplayName("tests update()")
+    @Test
+    void shouldTestUpdate() {
+        // given
+        var titleExpected = "BookUpdated";
+        var expectedId = 1L;
+        var book = bookRepository.findById(1L).get();
+
+        // when
+        book.setTitle(titleExpected);
+        bookRepository.save(book);
+        var bookFound = em.find(Book.class, expectedId);
+
+        // then
+        assertThat(bookFound)
+                .isNotNull()
+                .isInstanceOf(Book.class)
+                .hasFieldOrPropertyWithValue("title", titleExpected);
+    }
+
+    @DisplayName("tests deleteById()")
+    @Test
+    void shouldTestDeleteById() {
+        // given
+        var expectedId = 1L;
+
+        // when
+        bookRepository.deleteById(expectedId);
+        var bookFound = em.find(Book.class, expectedId);
+
+        // then
+        assertThat(bookFound).isNull();
     }
 }
