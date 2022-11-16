@@ -127,4 +127,30 @@ class BookRepositoryTest extends BaseTest {
         // then
         assertThat(bookFound).isNull();
     }
+
+    @DisplayName("tests getBookByTitle()")
+    @Test
+    void shouldTestGetBookByTitle() {
+        // given
+        var titleExpected = "Title_liquibase";
+
+        // when
+        var book = bookRepository.getBookByTitle(titleExpected);
+
+        // then
+        assertThat(book).isNotNull();
+    }
+
+    @DisplayName("tests getBookByTitle() Negative")
+    @Test
+    void shouldTestGetBookByTitleNegative() {
+        // given
+        var titleExpected = "Title_liquibase_Negative";
+
+        // when
+        var book = bookRepository.getBookByTitle(titleExpected);
+
+        // then
+        assertThat(book).isNull();
+    }
 }
