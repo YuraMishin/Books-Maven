@@ -19,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -118,5 +119,10 @@ public class BookServiceImpl implements BookService {
             return Optional.of(modelMapper.map(bookFound.get(), BookReqDto.class));
         }
         return Optional.empty();
+    }
+
+    @Override
+    public boolean isBookUnique(String title) {
+        return Objects.isNull(bookRepository.getBookByTitle(title));
     }
 }

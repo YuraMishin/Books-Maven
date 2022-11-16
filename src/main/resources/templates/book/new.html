@@ -10,7 +10,12 @@
 <h1>Create Book</h1>
 <p>&nbsp;|&nbsp;<a href="/books/">Back</a>&nbsp;|</p>
 <div class="container">
-    <form th:object="${book}" th:action="@{/books/}" th:method="POST">
+    <form
+            th:object="${book}"
+            th:action="@{/books/}"
+            th:method="POST"
+            onsubmit="return checkBookUnique(this)"
+    >
         <div class="form-group">
             <label for="title">Title:</label>
             <input type="text" class="form-control" id="title"
@@ -31,12 +36,13 @@
 </div>
 <script th:src="@{/js/bootstrap.js}"></script>
 <script th:src="@{/js/jquery.js}"></script>
-<script>
-    $(document).ready(function () {
-        $("#btnCancel").click(function () {
-            window.location = "[[@{/books/}]]";
-        })
-    });
-</script>
+<script th:src="@{/js/custom.js}"></script>
+<!--<script>-->
+<!--    $(document).ready(function () {-->
+<!--        $("#btnCancel").click(function () {-->
+<!--            window.location = "[[@{/books/}]]";-->
+<!--        })-->
+<!--    });-->
+<!--</script>-->
 </body>
 </html>

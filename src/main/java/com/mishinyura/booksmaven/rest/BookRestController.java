@@ -8,9 +8,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -76,6 +78,9 @@ public interface BookRestController {
     })
     @ResponseStatus(HttpStatus.FOUND)
     BookResDto getBookById(@PathVariable Long id);
+
+    @PostMapping("check_unique")
+    String checkDuplicateBook(@Param("title") String title);
 //
 //    /**
 //     * Method creates document.
