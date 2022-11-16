@@ -39,4 +39,9 @@ public class BookRestControllerImpl implements BookRestController {
     public void createBook(@RequestBody @Valid BookReqDto bookReqDto, BindingResult bindingResult) {
         bookService.createBook(bookReqDto, bindingResult);
     }
+
+    @Override
+    public String checkDuplicateBook(String title) {
+        return bookService.isBookUnique(title) ? "OK" : "Duplicated";
+    }
 }

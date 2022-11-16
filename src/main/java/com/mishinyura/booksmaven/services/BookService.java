@@ -29,4 +29,6 @@ public interface BookService {
     void deleteBookById(Long id);
 
     Optional<BookReqDto> findBookByTitle(String title);
+
+    boolean isBookUnique(String title);
 }
