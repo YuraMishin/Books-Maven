@@ -61,6 +61,7 @@ public class BookServiceImpl implements BookService {
         if (bookFound.isPresent()) {
             var bookResDto = modelMapper.map(bookFound.get(), BookResDto.class);
             model.addAttribute("book", bookResDto);
+            model.addAttribute("pageTitle", String.format("Edit Book (ID: %s)", id));
             return page;
         }
         throw new BookNotFoundExceptionMVC("Book not found !");

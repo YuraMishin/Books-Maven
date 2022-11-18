@@ -40,10 +40,16 @@
                 <tr th:each="book : ${books}">
                     <td>[[${book.id}]]</td>
                     <td th:text="${book.title}"></td>
-                    <td><a th:href="@{/books/{id}(id=${book.id})}">
+                    <td><a
+                            th:href="@{/books/{id}(id=${book.id})}"
+                            title="View Book"
+                    >
                         <i class="fa-solid fa-eye"></i>
                     </a></td>
-                    <td><a th:href="@{/books/{id}/edit(id=${book.id})}">
+                    <td><a
+                            th:href="@{/books/{id}/edit(id=${book.id})}"
+                            title="Edit Book"
+                    >
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a>
                     </td>
