@@ -2,6 +2,7 @@ package com.mishinyura.booksmaven.controllers;
 
 import com.mishinyura.booksmaven.dto.BookReqDto;
 import com.mishinyura.booksmaven.services.BookService;
+import com.mishinyura.booksmaven.utils.exceptions.BookNotFoundExceptionMVC;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,22 +52,43 @@ public class BookController {
     }
 
     @GetMapping(value = "/{id}/edit")
-    public String showEditBookPage(@PathVariable Long id, Model model) {
-        return bookService.findBookByIdMVC(model, id, "book/edit");
+    public String showEditBookPage(
+            @PathVariable Long id,
+            Model model,
+            RedirectAttributes redirectAttributes) {
+
+        try {
+            return bookService.findBookByIdMVC(model, id, "book/edit");
+        } catch (BookNotFoundExceptionMVC exceptionMVC) {
+            redirectAttributes.addFlashAttribute(
+                    "message",
+                    exceptionMVC.getMessage());
+            return "redirect:/books";
+        }
     }
 
     @PatchMapping("/{id}")
     public String updateBook(
             @PathVariable("id") Long id,
-            @ModelAttribute("book") BookReqDto book
+            @ModelAttribute("book") BookReqDto book,
+            RedirectAttributes redirectAttributes
     ) {
         bookService.updateBook(id, book);
+        redirectAttributes.addFlashAttribute(
+                "message",
+                "The book has been updated successfully!");
         return "redirect:/books/";
     }
 
     @DeleteMapping(value = "/{id}")
-    public String delete(@PathVariable("id") final Long id) {
+    public String delete(
+            @PathVariable("id") final Long id,
+            RedirectAttributes redirectAttributes
+    ) {
         bookService.deleteBookById(id);
+        redirectAttributes.addFlashAttribute(
+                "message",
+                "The book has been deleted successfully!");
         return "redirect:/books/";
     }
 }
