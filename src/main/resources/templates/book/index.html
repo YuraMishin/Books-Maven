@@ -5,6 +5,8 @@
     <title>Books Project - All Books</title>
     <link th:href="@{/css/bootstrap.css}"
           rel="stylesheet"/>
+    <link th:href="@{/fontawesome/all.css}"
+          rel="stylesheet"/>
 </head>
 <body>
 <h1>All Books</h1>
@@ -38,8 +40,12 @@
                 <tr th:each="book : ${books}">
                     <td>[[${book.id}]]</td>
                     <td th:text="${book.title}"></td>
-                    <td><a th:href="@{/books/{id}(id=${book.id})}">View</a></td>
-                    <td><a th:href="@{/books/{id}/edit(id=${book.id})}">Edit</a>
+                    <td><a th:href="@{/books/{id}(id=${book.id})}">
+                        <i class="fa-solid fa-eye"></i>
+                    </a></td>
+                    <td><a th:href="@{/books/{id}/edit(id=${book.id})}">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
                     </td>
                     <td>
                         <form th:method="DELETE"
@@ -48,6 +54,7 @@
                                 Delete
                             </button>
                         </form>
+                        <i class="fa-solid fa-trash"></i>
                     </td>
                 </tr>
                 <tbody>
