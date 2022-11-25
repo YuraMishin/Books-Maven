@@ -35,4 +35,7 @@ public class Book {
     @Size(min = 2, max = 50, message = "Title should be between 2 and 50!")
     @Column(name = "title", unique = true, nullable = false)
     private String title;
+
+    @Column(name = "enabled", unique = false, nullable = false)
+    private boolean enabled;
 }

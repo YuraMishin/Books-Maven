@@ -66,7 +66,8 @@ class BookRepositoryTest extends BaseTest {
         assertThat(bookActual)
                 .isNotNull()
                 .isInstanceOf(Book.class)
-                .hasFieldOrPropertyWithValue("title", titleExpected);
+                .hasFieldOrPropertyWithValue("title", titleExpected)
+                .hasFieldOrPropertyWithValue("enabled", false);
     }
 
     @DisplayName("tests save()")
@@ -85,7 +86,8 @@ class BookRepositoryTest extends BaseTest {
         assertThat(bookSaved)
                 .isNotNull()
                 .isInstanceOf(Book.class)
-                .hasFieldOrPropertyWithValue("title", titleExpected);
+                .hasFieldOrPropertyWithValue("title", titleExpected)
+                .hasFieldOrPropertyWithValue("enabled", false);
 
         assertThat(bookSaved.getId())
                 .isPositive()
@@ -111,7 +113,8 @@ class BookRepositoryTest extends BaseTest {
         assertThat(bookFound)
                 .isNotNull()
                 .isInstanceOf(Book.class)
-                .hasFieldOrPropertyWithValue("title", titleExpected);
+                .hasFieldOrPropertyWithValue("title", titleExpected)
+                .hasFieldOrPropertyWithValue("enabled", false);
     }
 
     @DisplayName("tests deleteById()")

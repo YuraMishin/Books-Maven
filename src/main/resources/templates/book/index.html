@@ -5,6 +5,8 @@
     <title>Books Project - All Books</title>
     <link th:href="@{/css/bootstrap.css}"
           rel="stylesheet"/>
+    <link th:href="@{/css/style.css}"
+          rel="stylesheet"/>
     <link th:href="@{/fontawesome/all.css}"
           rel="stylesheet"/>
 </head>
@@ -31,6 +33,7 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Title</th>
+                    <th scope="col">Enabled</th>
                     <th scope="col">View</th>
                     <th scope="col">Edit</th>
                     <th scope="col">Delete</th>
@@ -40,26 +43,34 @@
                 <tr th:each="book : ${books}">
                     <td>[[${book.id}]]</td>
                     <td th:text="${book.title}"></td>
+                    <td>
+                        <a th:if="${book.enabled == true}" href="#" class="">
+                            <i class="fa-solid fa-circle-check fa-2x icon-green"></i>
+                        </a>
+                        <a th:if="${book.enabled == false}" href="#" class="">
+                            <i class="fa-solid fa-circle-check fa-2x icon-dark"></i>
+                        </a>
+                    </td>
                     <td><a
                             th:href="@{/books/{id}(id=${book.id})}"
                             title="View Book"
                     >
-                        <i class="fa-solid fa-eye"></i>
+                        <i class="fa-solid fa-eye fa-2x"></i>
                     </a></td>
                     <td><a
                             th:href="@{/books/{id}/edit(id=${book.id})}"
                             title="Edit Book"
                     >
-                        <i class="fa-solid fa-pen-to-square"></i>
+                        <i class="fa-solid fa-pen-to-square fa-2x"></i>
                     </a>
                     </td>
                     <td>
                         <a
-                                class="fa-solid fa-trash link-delete"
                                 th:href="@{/books/{id}(id=${book.getId()})}"
                                 title="Delete this book"
                                 th:bookId="${book.id}"
                         >
+                            <i class="fa-solid fa-trash link-delete fa-2x"></i>
                         </a>
                     </td>
                 </tr>
