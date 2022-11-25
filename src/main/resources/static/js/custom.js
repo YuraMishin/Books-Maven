@@ -2,6 +2,8 @@ $(document).ready(function () {
     $("#btnCancel").click(function () {
         window.location = "/books/";
     })
+
+    onClickLinkDelete();
 });
 
 function checkBookUnique(form) {
@@ -16,7 +18,6 @@ function checkBookUnique(form) {
             form.submit();
             return;
         } else if (res === 'Duplicated') {
-            // alert(`There is another book having the title ${bookTitle}`);
             showModalDialog('Warning',
                 `There is another book having the title ${bookTitle}`
             );
@@ -33,4 +34,15 @@ function showModalDialog(title, message) {
     $('#modalTitle').text(title);
     $('#modalBody').text(message);
     $('#modalDialog').modal('show');
+}
+
+function onClickLinkDelete() {
+    $(".link-delete").click(function (e) {
+        e.preventDefault();
+        let link = $(this);
+        let bookId = link.attr("bookId");
+        $('#confirmText').text(`Are you sure you want to delete the book with ID ${bookId}?`);
+        $('#deleteForm').attr('action', `/books/${bookId}`);
+        $('#confirmModal').modal('show');
+    });
 }

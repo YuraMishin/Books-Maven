@@ -54,13 +54,13 @@
                     </a>
                     </td>
                     <td>
-                        <form th:method="DELETE"
-                              th:action="@{/books/{id}(id=${book.getId()})}">
-                            <button type="submit" class="btn btn-danger">
-                                Delete
-                            </button>
-                        </form>
-                        <i class="fa-solid fa-trash"></i>
+                        <a
+                                class="fa-solid fa-trash link-delete"
+                                th:href="@{/books/{id}(id=${book.getId()})}"
+                                title="Delete this book"
+                                th:bookId="${book.id}"
+                        >
+                        </a>
                     </td>
                 </tr>
                 <tbody>
@@ -68,6 +68,42 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalTitle">Delete
+                    Confirmation</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <span id="confirmText"></span>
+            </div>
+            <div class="modal-footer">
+                <form
+                        th:method="DELETE"
+                        id="deleteForm" action="#">
+                    <button
+                            type="submit"
+                            class="btn btn-success"
+                    >
+                        Yes
+                    </button>
+                </form>
+                <button type="button" class="btn btn-danger"
+                        data-bs-dismiss="modal">No
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script th:src="@{/js/bootstrap.js}"></script>
+<script th:src="@{/js/jquery.js}"></script>
+<script th:src="@{/js/custom.js}"></script>
 </body>
 </html>

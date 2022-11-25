@@ -4,8 +4,10 @@ import com.mishinyura.booksmaven.dto.BookReqDto;
 import com.mishinyura.booksmaven.services.BookService;
 import com.mishinyura.booksmaven.utils.exceptions.BookNotFoundExceptionMVC;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StopWatch;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
+@Slf4j
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/books")
@@ -85,7 +88,18 @@ public class BookController {
             @PathVariable("id") final Long id,
             RedirectAttributes redirectAttributes
     ) {
+        StopWatch countdown = new StopWatch();
+        countdown.start();
+
+        String className = getClass().getSimpleName();
+        String methodName = Thread.currentThread()
+                .getStackTrace()[1].getMethodName();
+        log.info("Executed {}.{}()", className, methodName);
+
         bookService.deleteBookById(id);
+
+        countdown.stop();
+        log.info("Execution time of {}.{}():: {}ms", className, methodName, countdown.getTotalTimeMillis());
         redirectAttributes.addFlashAttribute(
                 "message",
                 "The book has been deleted successfully!");
