@@ -44,11 +44,19 @@
                     <td>[[${book.id}]]</td>
                     <td th:text="${book.title}"></td>
                     <td>
-                        <a th:if="${book.enabled == true}" href="#" class="">
+                        <a
+                                th:if="${book.enabled == true}"
+                                th:href="@{'/books/' + ${book.id} + '/enabled/false'}"
+                                title="Disable this book"
+                        >
                             <i class="fa-solid fa-circle-check fa-2x icon-green"></i>
                         </a>
-                        <a th:if="${book.enabled == false}" href="#" class="">
-                            <i class="fa-solid fa-circle-check fa-2x icon-dark"></i>
+                        <a
+                                th:if="${book.enabled == false}"
+                                th:href="@{'/books/' + ${book.id} + '/enabled/true'}"
+                                title="Enable this book"
+                        >
+                            <i class="fa-solid fa-circle fa-2x icon-dark"></i>
                         </a>
                     </td>
                     <td><a

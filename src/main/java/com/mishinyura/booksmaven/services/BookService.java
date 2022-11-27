@@ -31,4 +31,6 @@ public interface BookService {
     Optional<BookReqDto> findBookByTitle(String title);
 
     boolean isBookUnique(String title);
+
+    void updateBookEnabledStatus(Long id, boolean enabled);
 }

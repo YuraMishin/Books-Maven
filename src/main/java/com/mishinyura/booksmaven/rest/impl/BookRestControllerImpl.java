@@ -44,4 +44,6 @@ public class BookRestControllerImpl implements BookRestController {
     public String checkDuplicateBook(String title) {
         return bookService.isBookUnique(title) ? "OK" : "Duplicated";
     }
+
+
 }

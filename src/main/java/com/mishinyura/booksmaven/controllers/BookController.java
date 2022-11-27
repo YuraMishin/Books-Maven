@@ -20,6 +20,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
+import static java.lang.String.format;
+
 @Slf4j
 @RequiredArgsConstructor
 @Controller
@@ -103,6 +105,21 @@ public class BookController {
         redirectAttributes.addFlashAttribute(
                 "message",
                 "The book has been deleted successfully!");
+        return "redirect:/books/";
+    }
+
+    @GetMapping(value = "/{id}/enabled/{status}")
+    public String updateBookEnabledStatus(
+            @PathVariable("id") Long id,
+            @PathVariable("status") boolean enabled,
+            RedirectAttributes redirectAttributes) {
+
+        bookService.updateBookEnabledStatus(id, enabled);
+        var status = enabled ? "enabled" : "disabled";
+        var message = format("The book ID %s has been %s", id, status);
+        redirectAttributes.addFlashAttribute(
+                "message",
+                message);
         return "redirect:/books/";
     }
 }
