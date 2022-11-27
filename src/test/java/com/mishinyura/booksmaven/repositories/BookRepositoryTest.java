@@ -156,4 +156,24 @@ class BookRepositoryTest extends BaseTest {
         // then
         assertThat(book).isNull();
     }
+
+    @DisplayName("tests updateEnabledStatus()")
+    @Test
+    void testEnableBook() {
+        // given
+        var bookId = 1L;
+
+        // when
+        var bookFound = em.find(Book.class, bookId);
+        var isEnabledBefore = bookFound.isEnabled();
+
+        bookRepository.updateBookEnabledStatus(bookId, true);
+        em.refresh(bookFound);
+
+        var isEnabledAfter = bookFound.isEnabled();
+
+        // then
+        assertThat(isEnabledBefore).isFalse();
+        assertThat(isEnabledAfter).isTrue();
+    }
 }

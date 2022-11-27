@@ -2,6 +2,7 @@ package com.mishinyura.booksmaven.repositories;
 
 import com.mishinyura.booksmaven.entities.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -18,4 +19,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query(value = "from Book")
     List<Book> findAllBooks();
+
+    @Query(value = "update Book b set b.enabled = :enabled where b.id = :id")
+    @Modifying
+    void updateBookEnabledStatus(@Param("id") Long id, @Param("enabled") boolean enabled);
 }

@@ -126,4 +126,10 @@ public class BookServiceImpl implements BookService {
     public boolean isBookUnique(String title) {
         return Objects.isNull(bookRepository.getBookByTitle(title));
     }
+
+    @Transactional
+    @Override
+    public void updateBookEnabledStatus(Long id, boolean enabled) {
+        bookRepository.updateBookEnabledStatus(id, enabled);
+    }
 }
