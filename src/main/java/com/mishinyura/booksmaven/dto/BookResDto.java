@@ -20,4 +20,8 @@ public final class BookResDto {
     @Schema(description = "Book title", example = "Some title", type = "String")
     @JsonProperty("title")
     private String title;
+
+    @Schema(description = "Book Status", example = "True/false", type = "boolean")
+    @JsonProperty("enabled")
+    private boolean enabled;
 }
