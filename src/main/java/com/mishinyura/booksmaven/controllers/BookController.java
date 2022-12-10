@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -49,11 +51,13 @@ public class BookController {
     public String createBook(
             @ModelAttribute("book") @Valid BookReqDto book,
             BindingResult bindingResult,
-            RedirectAttributes redirectAttributes
+            RedirectAttributes redirectAttributes,
+            @RequestParam("image") MultipartFile multipartFile
     ) {
+        var page = bookService.createBookMVC(book, bindingResult, multipartFile);
         redirectAttributes.addFlashAttribute("message",
                 "The book has been saved successfully!");
-        return bookService.createBookMVC(book, bindingResult);
+        return page;
     }
 
     @GetMapping(value = "/{id}/edit")
