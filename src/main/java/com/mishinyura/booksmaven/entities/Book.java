@@ -1,5 +1,6 @@
 package com.mishinyura.booksmaven.entities;
 
+import com.mishinyura.booksmaven.utils.constants.MainConstants;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
@@ -38,4 +40,15 @@ public class Book {
 
     @Column(name = "enabled", unique = false, nullable = false)
     private boolean enabled;
+
+    @Column(name = "photos", unique = false, nullable = true)
+    private String photos;
+
+//    @Transient
+//    public String getPhotosImagePath() {
+//        if (id == null || photos == null) {
+//            return "/img/default-user.png";
+//        }
+//        return "/" + MainConstants.BOOK_PHOTOS + "/" + this.id + "/" + this.photos;
+//    }
 }

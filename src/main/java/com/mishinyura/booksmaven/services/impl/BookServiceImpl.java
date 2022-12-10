@@ -5,9 +5,11 @@ import com.mishinyura.booksmaven.dto.BookResDto;
 import com.mishinyura.booksmaven.entities.Book;
 import com.mishinyura.booksmaven.repositories.BookRepository;
 import com.mishinyura.booksmaven.services.BookService;
+import com.mishinyura.booksmaven.utils.constants.MainConstants;
 import com.mishinyura.booksmaven.utils.exceptions.BookNotCreatedException;
 import com.mishinyura.booksmaven.utils.exceptions.BookNotFoundException;
 import com.mishinyura.booksmaven.utils.exceptions.BookNotFoundExceptionMVC;
+import com.mishinyura.booksmaven.utils.files.FileUploadUtil;
 import com.mishinyura.booksmaven.utils.validators.BookValidator;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -15,9 +17,12 @@ import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -37,6 +42,23 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<BookResDto> findAllBooks() {
         var books = bookRepository.findAll();
+
+        for (Book book : books) {
+            if (book.getId() == null || book.getPhotos() == null) {
+                book.setPhotos("/img/default-user.png");
+                continue;
+            }
+
+            var path = "/"
+                    + MainConstants.BOOK_PHOTOS
+                    + "/"
+                    + book.getId()
+                    + "/"
+                    + book.getPhotos();
+
+            book.setPhotos(path);
+        }
+
         return modelMapper
                 .map(books, new TypeToken<List<BookResDto>>() {
                 }.getType());
@@ -87,13 +109,29 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
-    public String createBookMVC(BookReqDto book, BindingResult bindingResult) {
+    public String createBookMVC(
+            BookReqDto book,
+            BindingResult bindingResult,
+            MultipartFile multipartFile) {
+
         bookValidator.validate(book, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "book/new";
         }
-        bookRepository.save(modelMapper.map(book, Book.class));
+
+        if (!multipartFile.isEmpty()) {
+            var bookToSave = modelMapper.map(book, Book.class);
+            var fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            bookToSave.setPhotos(fileName);
+            var bookSaved = bookRepository.save(bookToSave);
+
+            var uploadDir = Paths.get(
+                    MainConstants.BOOK_PHOTOS,
+                    bookSaved.getId().toString())
+                    .toString();
+            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        }
         return "redirect:/books/";
     }
 
