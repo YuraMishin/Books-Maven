@@ -25,16 +25,6 @@ public class FileUploadUtil {
         if (!Files.exists(uploadPath)) {
             try {
                 Files.createDirectories(uploadPath);
-                try (var is = multipartFile.getInputStream()) {
-                    var filePath = uploadPath.resolve(fileName);
-                    Files.copy(is, filePath, StandardCopyOption.REPLACE_EXISTING);
-                } catch (IOException e) {
-                    log.error(
-                            "{} - Exception caught - {}",
-                            LocalDateTime.now(),
-                            "IOException! Could not save file:" + fileName
-                    );
-                }
             } catch (IOException e) {
                 log.error(
                         "{} - Exception caught - {}",
@@ -43,5 +33,20 @@ public class FileUploadUtil {
                 );
             }
         }
+
+        try (var is = multipartFile.getInputStream()) {
+            var filePath = uploadPath.resolve(fileName);
+            Files.copy(is, filePath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            log.error(
+                    "{} - Exception caught - {}",
+                    LocalDateTime.now(),
+                    "IOException! Could not save file:" + fileName
+            );
+        }
+    }
+
+    public static void cleanDir(String dir) {
+
     }
 }

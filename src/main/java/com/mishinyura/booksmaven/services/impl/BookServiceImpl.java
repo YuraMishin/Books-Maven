@@ -12,21 +12,27 @@ import com.mishinyura.booksmaven.utils.exceptions.BookNotFoundExceptionMVC;
 import com.mishinyura.booksmaven.utils.files.FileUploadUtil;
 import com.mishinyura.booksmaven.utils.validators.BookValidator;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class BookServiceImpl implements BookService {
@@ -41,27 +47,29 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookResDto> findAllBooks() {
-        var books = bookRepository.findAll();
-
-        for (Book book : books) {
-            if (book.getId() == null || book.getPhotos() == null) {
-                book.setPhotos("/img/default-user.png");
-                continue;
-            }
-
-            var path = "/"
-                    + MainConstants.BOOK_PHOTOS
-                    + "/"
-                    + book.getId()
-                    + "/"
-                    + book.getPhotos();
-
-            book.setPhotos(path);
-        }
-
+        var books = bookRepository.findAll(
+                Sort.by(Sort.Direction.ASC, "id")
+        );
+        books.forEach(book -> book.setPhotos(getPath(book)));
         return modelMapper
                 .map(books, new TypeToken<List<BookResDto>>() {
                 }.getType());
+    }
+
+    private String getPath(Book book) {
+        var path = new StringBuilder()
+                .append("/")
+                .append(MainConstants.BOOK_PHOTOS)
+                .append("/")
+                .append(book.getId())
+                .append("/")
+                .append(book.getPhotos())
+                .append("/")
+                .toString();
+        if (book.getId() == null || book.getPhotos() == null) {
+            path = "/img/default-book.png";
+        }
+        return path;
     }
 
     @Transactional
@@ -81,7 +89,11 @@ public class BookServiceImpl implements BookService {
     public String findBookByIdMVC(Model model, Long id, String page) {
         var bookFound = bookRepository.findById(id);
         if (bookFound.isPresent()) {
-            var bookResDto = modelMapper.map(bookFound.get(), BookResDto.class);
+            var book = bookFound.get();
+            book.setPhotos(getPath(book));
+
+            var bookResDto = modelMapper.map(book, BookResDto.class);
+
             model.addAttribute("book", bookResDto);
             model.addAttribute("pageTitle", String.format("Edit Book (ID: %s)", id));
             return page;
@@ -120,27 +132,50 @@ public class BookServiceImpl implements BookService {
             return "book/new";
         }
 
+        var bookToSave = modelMapper.map(book, Book.class);
+        var fileName = "default-book.png";
+
         if (!multipartFile.isEmpty()) {
-            var bookToSave = modelMapper.map(book, Book.class);
-            var fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
             bookToSave.setPhotos(fileName);
             var bookSaved = bookRepository.save(bookToSave);
-
             var uploadDir = Paths.get(
                     MainConstants.BOOK_PHOTOS,
                     bookSaved.getId().toString())
                     .toString();
             FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        } else {
+            bookToSave.setPhotos(fileName);
+            bookRepository.save(bookToSave);
         }
         return "redirect:/books/";
     }
 
     @Transactional
     @Override
-    public void updateBook(Long id, BookReqDto book) {
+    public void updateBook(Long id, BookReqDto book, MultipartFile multipartFile) {
         bookRepository.findById(id)
                 .ifPresent(bookToSave -> {
                     modelMapper.map(book, bookToSave);
+                    if (!multipartFile.isEmpty()) {
+                        var fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+                        bookToSave.setPhotos(fileName);
+
+                        var uploadDir = Paths.get(
+                                MainConstants.BOOK_PHOTOS,
+                                bookToSave.getId().toString())
+                                .toString();
+                        try {
+                            FileSystemUtils.deleteRecursively(Paths.get(uploadDir));
+                        } catch (IOException e) {
+                            log.error(
+                                    "{} - Exception caught - {}",
+                                    LocalDateTime.now(),
+                                    "IOException! Could not clean folder:" + uploadDir
+                            );
+                        }
+                        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+                    }
                     bookRepository.save(bookToSave);
                 });
     }
