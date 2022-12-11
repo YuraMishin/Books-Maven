@@ -5,6 +5,7 @@ import com.mishinyura.booksmaven.dto.BookResDto;
 import com.mishinyura.booksmaven.entities.Book;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public interface BookService {
 
     String createBookMVC(BookReqDto book, BindingResult bindingResult, MultipartFile multipartFile);
 
-    void updateBook(Long id, BookReqDto book);
+    void updateBook(Long id, BookReqDto book, MultipartFile multipartFile);
 
     void deleteBookById(Long id);
 

@@ -1,10 +1,16 @@
 $(document).ready(function () {
+    onClickBtnCancel();
+    onClickLinkDelete();
+    onClickImageUpload();
+});
+
+function onClickBtnCancel() {
     $("#btnCancel").click(function () {
         window.location = "/books/";
     })
+}
 
-    onClickLinkDelete();
-
+function onClickImageUpload() {
     $("#fileImage").change(function () {
         var fileSize = this.files[0].size;
         console.log(fileSize);
@@ -16,7 +22,7 @@ $(document).ready(function () {
             showImageThumbnail(this);
         }
     });
-});
+}
 
 function showImageThumbnail(fileInput) {
     var file = fileInput.files[0];

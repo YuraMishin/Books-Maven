@@ -80,9 +80,10 @@ public class BookController {
     public String updateBook(
             @PathVariable("id") Long id,
             @ModelAttribute("book") BookReqDto book,
-            RedirectAttributes redirectAttributes
+            RedirectAttributes redirectAttributes,
+            @RequestParam("image") MultipartFile multipartFile
     ) {
-        bookService.updateBook(id, book);
+        bookService.updateBook(id, book, multipartFile);
         redirectAttributes.addFlashAttribute(
                 "message",
                 "The book has been updated successfully!");
