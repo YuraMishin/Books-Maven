@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Tests BookRepository")
-@DataJpaTest
+@DataJpaTest(showSql = false)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
 class BookRepositoryTest extends BaseTest {
@@ -27,7 +29,7 @@ class BookRepositoryTest extends BaseTest {
     @Test
     void shouldGetBooksCount() {
         // given
-        var expectedCount = 1L;
+        var expectedCount = 4L;
 
         // when
         var actualCount = bookRepository.count();
@@ -42,7 +44,7 @@ class BookRepositoryTest extends BaseTest {
     @Test
     void shouldFindAllBooks() {
         // given
-        var sizeExpected = 1;
+        var sizeExpected = 4;
 
         // when
         var books = bookRepository.findAllBooks();
@@ -57,7 +59,7 @@ class BookRepositoryTest extends BaseTest {
     @Test
     void shouldTestFindById() {
         // given
-        var titleExpected = "Title_liquibase";
+        var titleExpected = "Title_liquibase1";
 
         // when
         var bookActual = bookRepository.findById(1L).get();
@@ -76,7 +78,7 @@ class BookRepositoryTest extends BaseTest {
         // given
         var titleExpected = "Book2";
         var book = new Book().setTitle(titleExpected);
-        var expectedId = 2L;
+        var expectedId = 5L;
 
         // when
         var bookSaved = bookRepository.save(book);
@@ -135,7 +137,7 @@ class BookRepositoryTest extends BaseTest {
     @Test
     void shouldTestGetBookByTitle() {
         // given
-        var titleExpected = "Title_liquibase";
+        var titleExpected = "Title_liquibase1";
 
         // when
         var book = bookRepository.getBookByTitle(titleExpected);
@@ -175,5 +177,21 @@ class BookRepositoryTest extends BaseTest {
         // then
         assertThat(isEnabledBefore).isFalse();
         assertThat(isEnabledAfter).isTrue();
+    }
+
+    @DisplayName("testListFirstPage")
+    @Test
+    void testListFirstPage() {
+        // given
+        var pageNumber = 0;
+        var pageSize = 4;
+        var pageable = PageRequest.of(pageNumber, pageSize);
+
+        // when
+        var page = bookRepository.findAll(pageable);
+        var pageSizeActual = page.getSize();
+
+        // then
+        assertThat(pageSizeActual).isEqualTo(pageSize);
     }
 }
