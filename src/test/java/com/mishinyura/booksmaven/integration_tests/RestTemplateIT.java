@@ -30,7 +30,7 @@ class RestTemplateIT extends BaseTest {
         );
         var bookExpected = new BookResDto()
                 .setId(1L)
-                .setTitle("Title_liquibase");
+                .setTitle("Title_liquibase1");
 
         // when
         var bookActual = restTemplate.getForObject(endpoint, BookResDto.class);
