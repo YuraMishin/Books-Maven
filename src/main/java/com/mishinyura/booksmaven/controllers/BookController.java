@@ -127,4 +127,12 @@ public class BookController {
                 message);
         return "redirect:/books/";
     }
+
+    @GetMapping("/page/{pageNum}")
+    public String findAllBooksByPage(@PathVariable("pageNum") int pageNum, Model model) {
+        var page = bookService.findAllBooksByPage(pageNum);
+        var books = page.getContent();
+        model.addAttribute("books", books);
+        return "book/index";
+    }
 }

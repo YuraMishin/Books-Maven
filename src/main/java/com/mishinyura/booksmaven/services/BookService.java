@@ -3,9 +3,9 @@ package com.mishinyura.booksmaven.services;
 import com.mishinyura.booksmaven.dto.BookReqDto;
 import com.mishinyura.booksmaven.dto.BookResDto;
 import com.mishinyura.booksmaven.entities.Book;
+import org.springframework.data.domain.Page;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -35,4 +35,6 @@ public interface BookService {
     boolean isBookUnique(String title);
 
     void updateBookEnabledStatus(Long id, boolean enabled);
+
+    Page<Book> findAllBooksByPage(int pageNum);
 }
