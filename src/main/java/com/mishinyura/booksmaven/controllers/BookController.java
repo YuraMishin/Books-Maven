@@ -145,6 +145,7 @@ public class BookController {
         model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute("currentPage", pageNum);
         model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("pagination", true);
 
         return "book/index";
     }

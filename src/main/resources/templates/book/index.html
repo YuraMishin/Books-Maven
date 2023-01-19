@@ -96,40 +96,46 @@
             </table>
         </div>
 
-        <div class="text-center m-1" th:if="${totalItems > 0}">
+        <div th:if="${pagination}">
+            <div class="text-center m-1" th:if="${totalItems > 0}">
             <span>
                 Showing users # [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]
             </span>
-        </div>
-        <div class="text-center m-1" th:unless="${totalItems > 0}">
+            </div>
+            <div class="text-center m-1" th:unless="${totalItems > 0}">
             <span>
                 No books found
             </span>
-        </div>
+            </div>
 
-        <div>
-            <nav>
-                <ul class="pagination justify-content-center">
-                    <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-                        <a class="page-link"
-                           th:href="@{/books/page/1}">First</a>
-                    </li>
-                    <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-                        <a class="page-link" th:href="@{'/books/page/' + ${currentPage - 1}}">Previous</a>
-                    </li>
+            <div>
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+                            <a class="page-link"
+                               th:href="@{/books/page/1}">First</a>
+                        </li>
+                        <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+                            <a class="page-link"
+                               th:href="@{'/books/page/' + ${currentPage - 1}}">Previous</a>
+                        </li>
 
-                    <li th:class="${currentPage != i ? 'page-item' : 'page-item active'}"
-                        th:each="i : ${#numbers.sequence(1, totalPages)}">
-                        <a class="page-link" th:href="@{'/books/page/' + ${i}}">[[${i}]]</a>
-                    </li>
-                    <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-                        <a class="page-link" th:href="@{'/books/page/' + ${currentPage + 1}}">Next</a>
-                    </li>
-                    <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-                        <a class="page-link" th:href="@{'/books/page/' + ${totalPages}}">Last</a>
-                    </li>
-                </ul>
-            </nav>
+                        <li th:class="${currentPage != i ? 'page-item' : 'page-item active'}"
+                            th:each="i : ${#numbers.sequence(1, totalPages)}">
+                            <a class="page-link"
+                               th:href="@{'/books/page/' + ${i}}">[[${i}]]</a>
+                        </li>
+                        <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                            <a class="page-link"
+                               th:href="@{'/books/page/' + ${currentPage + 1}}">Next</a>
+                        </li>
+                        <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                            <a class="page-link"
+                               th:href="@{'/books/page/' + ${totalPages}}">Last</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
 
     </div>
