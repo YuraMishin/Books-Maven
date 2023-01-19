@@ -15,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +41,7 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final ModelMapper modelMapper;
     private final BookValidator bookValidator;
+    private static final int BOOKS_PER_PAGE = 2;
 
     @Override
     public Long getBooksCount() {
@@ -140,8 +143,8 @@ public class BookServiceImpl implements BookService {
             bookToSave.setPhotos(fileName);
             var bookSaved = bookRepository.save(bookToSave);
             var uploadDir = Paths.get(
-                    MainConstants.BOOK_PHOTOS,
-                    bookSaved.getId().toString())
+                            MainConstants.BOOK_PHOTOS,
+                            bookSaved.getId().toString())
                     .toString();
             FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
         } else {
@@ -162,8 +165,8 @@ public class BookServiceImpl implements BookService {
                         bookToSave.setPhotos(fileName);
 
                         var uploadDir = Paths.get(
-                                MainConstants.BOOK_PHOTOS,
-                                bookToSave.getId().toString())
+                                        MainConstants.BOOK_PHOTOS,
+                                        bookToSave.getId().toString())
                                 .toString();
                         try {
                             FileSystemUtils.deleteRecursively(Paths.get(uploadDir));
@@ -204,5 +207,12 @@ public class BookServiceImpl implements BookService {
     @Override
     public void updateBookEnabledStatus(Long id, boolean enabled) {
         bookRepository.updateBookEnabledStatus(id, enabled);
+    }
+
+    @Override
+    public Page<Book> findAllBooksByPage(int pageNum) {
+        var pageable = PageRequest.of(pageNum - 1, BOOKS_PER_PAGE);
+        var books = bookRepository.findAll(pageable);
+        return books;
     }
 }
