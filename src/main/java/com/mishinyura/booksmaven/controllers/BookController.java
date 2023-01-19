@@ -2,6 +2,7 @@ package com.mishinyura.booksmaven.controllers;
 
 import com.mishinyura.booksmaven.dto.BookReqDto;
 import com.mishinyura.booksmaven.services.BookService;
+import com.mishinyura.booksmaven.services.impl.BookServiceImpl;
 import com.mishinyura.booksmaven.utils.exceptions.BookNotFoundExceptionMVC;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -132,7 +133,17 @@ public class BookController {
     public String findAllBooksByPage(@PathVariable("pageNum") int pageNum, Model model) {
         var page = bookService.findAllBooksByPage(pageNum);
         var books = page.getContent();
+        var startCount = (pageNum - 1) * BookServiceImpl.BOOKS_PER_PAGE + 1;
+        long endCount = startCount + BookServiceImpl.BOOKS_PER_PAGE - 1;
+        if (endCount > page.getTotalElements()) {
+            endCount = page.getTotalElements();
+        }
+
         model.addAttribute("books", books);
+        model.addAttribute("startCount", startCount);
+        model.addAttribute("endCount", endCount);
+        model.addAttribute("totalItems", page.getTotalElements());
+
         return "book/index";
     }
 }

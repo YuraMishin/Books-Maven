@@ -41,7 +41,7 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final ModelMapper modelMapper;
     private final BookValidator bookValidator;
-    private static final int BOOKS_PER_PAGE = 2;
+    public static final int BOOKS_PER_PAGE = 2;
 
     @Override
     public Long getBooksCount() {
