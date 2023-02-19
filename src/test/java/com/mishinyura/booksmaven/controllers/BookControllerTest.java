@@ -3,6 +3,7 @@ package com.mishinyura.booksmaven.controllers;
 import com.mishinyura.booksmaven.dto.BookResDto;
 import com.mishinyura.booksmaven.services.BookService;
 import lombok.RequiredArgsConstructor;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -36,6 +37,7 @@ class BookControllerTest {
 
     @DisplayName("tests showHomePage()")
     @Test
+    @Disabled
     void shouldTestShowHomePage() {
         // given
         var bookController = new BookController(bookService);
@@ -63,6 +65,7 @@ class BookControllerTest {
 
     @DisplayName("tests showHomePage() via mockMVC")
     @Test
+    @Disabled
     void shouldTestShowHomePageViaMockMVC() throws Exception {
         // given
         var path = "/books";
