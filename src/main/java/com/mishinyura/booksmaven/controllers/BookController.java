@@ -148,6 +148,8 @@ public class BookController {
             endCount = page.getTotalElements();
         }
 
+        var reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+
         model.addAttribute("books", books);
         model.addAttribute("startCount", startCount);
         model.addAttribute("endCount", endCount);
@@ -155,6 +157,10 @@ public class BookController {
         model.addAttribute("currentPage", pageNum);
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("pagination", true);
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", reverseSortDir);
 
         return "book/index";
     }
