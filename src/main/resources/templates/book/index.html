@@ -33,7 +33,22 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Photo</th>
-                    <th scope="col">Title</th>
+
+                    <th scope="col">
+                        <a th:if="${sortField != 'title'}"
+                           th:href="@{${currentPage} + '?sortField=title&sortDir=' + ${sortDir}}"
+                        class="text-bg-info">
+                            Title
+                        </a>
+                        <a th:if="${sortField == 'title'}"
+                           th:href="@{${currentPage} + '?sortField=title&sortDir=' + ${reverseSortDir}}"
+                           class="text-bg-info">
+                            Title
+                        </a>
+                        <span th:if="${sortField == 'title'}"
+                              th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+                    </th>
+
                     <th scope="col">Enabled</th>
                     <th scope="col">View</th>
                     <th scope="col">Edit</th>
