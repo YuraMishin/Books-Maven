@@ -37,4 +37,6 @@ public interface BookService {
     void updateBookEnabledStatus(Long id, boolean enabled);
 
     Page<Book> findAllBooksByPage(int pageNum);
+
+    Page<Book> findAllBooksByPage(int pageNum, String sortField, String sortDir);
 }

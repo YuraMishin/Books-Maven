@@ -6,6 +6,8 @@ import com.mishinyura.booksmaven.services.impl.BookServiceImpl;
 import com.mishinyura.booksmaven.utils.exceptions.BookNotFoundExceptionMVC;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StopWatch;
@@ -34,8 +36,9 @@ public class BookController {
 
     @GetMapping(value = {"", "/"})
     public String showHomePage(Model model) {
-        model.addAttribute("books", bookService.findAllBooks());
-        return "book/index";
+//        model.addAttribute("books", bookService.findAllBooks());
+//        return "book/index";
+        return findAllBooksByPage(1, model, "title", "asc");
     }
 
     @GetMapping(value = "/{id}")
@@ -130,8 +133,14 @@ public class BookController {
     }
 
     @GetMapping("/page/{pageNum}")
-    public String findAllBooksByPage(@PathVariable("pageNum") int pageNum, Model model) {
-        var page = bookService.findAllBooksByPage(pageNum);
+    public String findAllBooksByPage(@PathVariable("pageNum") int pageNum, Model model, @Param("sortField") String sortField, @Param("sortDir") String sortDir) {
+        Page page;
+        if (sortField == null || sortDir == null) {
+            page = bookService.findAllBooksByPage(pageNum);
+        } else {
+            page = bookService.findAllBooksByPage(pageNum, sortField, sortDir);
+        }
+
         var books = page.getContent();
         var startCount = (pageNum - 1) * BookServiceImpl.BOOKS_PER_PAGE + 1;
         long endCount = startCount + BookServiceImpl.BOOKS_PER_PAGE - 1;
@@ -149,4 +158,6 @@ public class BookController {
 
         return "book/index";
     }
+
+
 }

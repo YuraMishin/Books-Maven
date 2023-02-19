@@ -215,4 +215,13 @@ public class BookServiceImpl implements BookService {
         var books = bookRepository.findAll(pageable);
         return books;
     }
+
+    @Override
+    public Page<Book> findAllBooksByPage(int pageNum, String sortField, String sortDir) {
+        var sort = Sort.by(sortField);
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+        var pageable = PageRequest.of(pageNum - 1, BOOKS_PER_PAGE, sort);
+        var books = bookRepository.findAll(pageable);
+        return books;
+    }
 }
