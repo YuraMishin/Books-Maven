@@ -6,9 +6,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.annotation.PostConstruct;
 
+/**
+ * Class Application.
+ * Implements the java program entry point.
+ *
+ * @author Mishin Yura (mishin.inbox@gmail.com)
+ * @since 04.09.2022
+ */
 @Slf4j
 @SpringBootApplication
 public class Application {
+
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
